@@ -2,43 +2,14 @@
 <!doctype html>
 <html>
 	<head>
-		<meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
-		<link href="https://fonts.googleapis.com/css?family=Fira+Sans:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
-		<link href="https://cloudinary-res.cloudinary.com/image/upload/v1597693619/docsite/brand-assets/cloudinary_favicon_192x192.png" rel="icon" sizes="192x192" type="image/png">
-		<link href="https://cloudinary-res.cloudinary.com/image/upload/v1600961452/docsite/brand-assets/cloudinary_favicon_mstile-150x150.png" rel="icon" sizes="150x150" type="image/png">
-		<link href="https://cloudinary-res.cloudinary.com/image/upload/v1600961449/docsite/brand-assets/cloudinary_favicon_96x96.png" rel="icon" sizes="96x96" type="image/png">
-		<link href="https://cloudinary-res.cloudinary.com/image/upload/v1597693619/docsite/brand-assets/cloudinary_favicon_32x32.png" rel="icon" sizes="32x32" type="image/png">
-		<link href="https://cloudinary-res.cloudinary.com/image/upload/v1600961448/docsite/brand-assets/cloudinary_favicon_16x16.png" rel="icon" sizes="16x16" type="image/png">
-		<title>Upload Widget 2.0 Demo | Cloudinary</title>
-		<script>
-			if (document.location.hostname !== "localhost") {
-			  (function (i, s, o, g, r, a, m) {
-				  i['GoogleAnalyticsObject'] = r;
-				  i[r] = i[r] || function () {
-					  (i[r].q = i[r].q || []).push(arguments)
-				  }
-					  , i[r].l = 1 * new Date();
-				  a = s.createElement(o),
-					  m = s.getElementsByTagName(o)[0];
-				  a.async = 1;
-				  a.src = g;
-				  m.parentNode.insertBefore(a, m)
-			  })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
-			  ga('create', 'UA-25966579-4', 'auto');
-			  ga('send', 'pageview');
-		  }</script>
-		<script defer="defer" type="module" src="/uw/js/chunk-vendors.970dea43.js"></script>
-		<script defer="defer" type="module" src="/uw/js/app.7ee22c8b.js"></script>
-		<link href="/uw/css/app.b9a9fc9e.css" rel="stylesheet">
-		<script defer="defer" src="/uw/js/chunk-vendors-legacy.2088b710.js" nomodule></script>
-		<script defer="defer" src="/uw/js/app-legacy.c21146e3.js" nomodule></script>
 	</head>
 	<body>
 		<noscript><strong>We're sorry but this Demo page doesn't work properly without JavaScript enabled. Please enable it to continue.</strong></noscript>
         	<div class="opener-wrapper" style="text-align: center; margin-bottom: 30px;">
-            		<button id="open-btn" onclick="openMl()">Open ML</button>
-            		<button id="close-btn" class='myBtn' onclick="closeMl()">Close</button>
+            		<button id="open-btn" onclick="showUploadWidget()">Ulpoad</button>
 		</div>
 	</body>
+	<script>
+function showUploadWidget() { cloudinary.openUploadWidget({    cloudName: "gpene",    uploadPreset: "agnesb-preset",    sources: [        "local",        "camera",        "google_drive",        "url",        "getty",        "image_search",        "instagram",        "dropbox"    ],    googleApiKey: "<image_search_google_api_key>",    showAdvancedOptions: false,    cropping: false,    multiple: true,    defaultSource: "local",    styles: {        palette: {            window: "#FFFFFF",            windowBorder: "#90A0B3",            tabIcon: "#0078FF",            menuIcons: "#5A616A",            textDark: "#000000",            textLight: "#FFFFFF",            link: "#0078FF",            action: "#FF620C",            inactiveTabIcon: "#0E2F5A",            error: "#F44235",            inProgress: "#0078FF",            complete: "#20B832",            sourceBg: "#E4EBF1"        },        fonts: {            default: null,            "'Fira Sans', sans-serif": {                url: "https://fonts.googleapis.com/css?family=Fira+Sans",                active: true            }        }    }}, (err, info) => {   if (!err) {         console.log("Upload Widget event - ", info);   }  }); }
+	</script>
 </html>
