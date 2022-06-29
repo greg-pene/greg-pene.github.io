@@ -78,6 +78,7 @@
 			    color: #101010;
 			    font-size: 12px;
 			    font-family: Helvetica, Arial, sans-serif;
+				background-color: #000000;
 			}
 		</style>
 	</head>
@@ -242,5 +243,6 @@
 	</footer>
 	</body>
 	<script>
-function showUploadWidget() { cloudinary.openUploadWidget({    cloudName: "gpene",    uploadPreset: "NCRO-Photographers-Olympics",    sources: [        "dropbox",        "local",        "google_drive",        "url",        "shutterstock",        "getty",        "istock",        "unsplash"    ],    googleApiKey: "<image_search_google_api_key>",    showAdvancedOptions: true,    cropping: false,    multiple: true,    defaultSource: "local",    styles: {        palette: {            window: "#FFFFFF",            windowBorder: "#1A5DA4",            tabIcon: "#1A5DA4",            menuIcons: "#5A616A",            textDark: "#1A5DA4",            textLight: "#FFFFFF",            link: "#1A5DA4",            action: "#FDD543",            inactiveTabIcon: "#90A0B3",            error: "#F44235",            inProgress: "#101010",            complete: "#20B832",            sourceBg: "#E4EBF1"        },        fonts: {            default: null,            "'Fira Sans', sans-serif": {                url: "https://fonts.googleapis.com/css?family=Fira+Sans",                active: true            }        }    }}, (err, info) => {   if (!err) {         console.log("Upload Widget event - ", info);   }  }); }	</script>
+function showUploadWidget() { cloudinary.openUploadWidget({    cloudName: "twentyfourseven",    uploadPreset: "tfs_auto_tagging_unsigned",    sources: [        "dropbox",        "local",        "google_drive",        "url",        "shutterstock",        "getty",        "istock",        "unsplash"    ],    googleApiKey: "<image_search_google_api_key>",    showAdvancedOptions: true,    cropping: false,    multiple: true,    defaultSource: "local",    styles: {        palette: {            window: "#FFFFFF",            windowBorder: "#1A5DA4",            tabIcon: "#1A5DA4",            menuIcons: "#5A616A",            textDark: "#1A5DA4",            textLight: "#FFFFFF",            link: "#1A5DA4",            action: "#FDD543",            inactiveTabIcon: "#90A0B3",            error: "#F44235",            inProgress: "#101010",            complete: "#20B832",            sourceBg: "#E4EBF1"        },        fonts: {            default: null,            "'Fira Sans', sans-serif": {                url: "https://fonts.googleapis.com/css?family=Fira+Sans",                active: true            }        }    }}, (err, info) => {   if (!err) {         console.log("Upload Widget event - ", info);   }  }); }	
+	</script>
 </html>
