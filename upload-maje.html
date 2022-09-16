@@ -22,7 +22,6 @@
 .container {
   position: relative;
   width: 100%;
-  max-width: 1080px;
 }
 
 .container img {
@@ -33,7 +32,7 @@
 .container .btn {
   position: absolute;
   top: 70%;
-  left: 20%;
+  right: 20%;
   transform: translate(-50%, -50%);
   -ms-transform: translate(-50%, -50%);
   background-color: #CEF501;
@@ -46,15 +45,22 @@
   text-align: center;
 }
 
-.container .btn-secondary {
-    color: #101010;
-    background-color: #ffffff;
-    transition: all 0.2s ease-in-out;
+.container .msg {
+  position: absolute;
+  top: 50%;
+  right: 0%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  color: #FFFFFF;
+  font-size: 42px;
+  border: none;
+  text-align: center;
 }
-			
+
 .container .btn:hover {
   background-color: black;
-  color: #FFFFFF			
+  color: #FFFFFF
+}		
 			
 			body {
 			    -webkit-font-smoothing: antialiased;
