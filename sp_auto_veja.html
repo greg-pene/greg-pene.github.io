@@ -1,0 +1,384 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>SP Auto API demo</title>
+    <meta charset="UTF-8" />
+    <link
+      href="https://unpkg.com/cloudinary-video-player@latest/dist/cld-video-player.min.css"
+      rel="stylesheet"
+    />
+    <script
+      src="https://unpkg.com/cloudinary-video-player@latest/dist/cld-video-player.min.js"
+      type="text/javascript"
+    ></script>
+    <style>
+      html {
+        box-sizing: border-box;
+        font-size: 16px;
+      }
+      *,
+      *:before,
+      *:after {
+        box-sizing: inherit;
+      }
+      body,
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6,
+      p,
+      ol,
+      ul {
+        font-family: Arial, Helvetica, sans-serif;
+        margin: 0;
+        padding: 0;
+        font-weight: normal;
+      }
+      ol,
+      ul {
+        list-style: none;
+      }
+      img {
+        max-width: 100%;
+        height: auto;
+      }
+      #title {
+        padding: 20px;
+        background-color: #3448c5;
+        color: white;
+        display: flex;
+        align-content: flex-end;
+        align-items: center;
+        justify-content: flex-start;
+        flex-wrap: wrap;
+        flex-direction: row;
+      }
+      #title img {
+        height: 50px;
+        margin-right: 20px;
+      }
+      #container {
+        margin: 0px 40px;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+        grid-gap: 50px;
+      }
+      #left {
+        word-wrap: break-word;
+      }
+      #right {
+        word-wrap: break-word;
+      }
+      #code {
+        background-color: #eee;
+        color: #333;
+        padding: 20px;
+        font-family: monospace;
+        font-size: 12px;
+      }
+      #url {
+        background-color: #eee;
+        color: #333;
+        padding: 20px;
+        font-family: monospace;
+        font-size: 12px;
+      }
+      #params {
+        margin: 0;
+        padding: 20px;
+        border: 1px solid #eee;
+        overflow: auto;
+        font-family: monospace;
+        font-size: 12px;
+      }
+      #response {
+        background-color: #eee;
+        color: #333;
+        padding: 20px;
+        margin: 0;
+        overflow: auto;
+        font-family: monospace;
+        font-size: 12px;
+      }
+      #input-file {
+        color: slateblue;
+        outline: none;
+      }
+      .intro {
+        margin: 0 0 40px 0;
+      }
+      h2 {
+        margin: 20px 0;
+        border-bottom: 1px solid;
+      }
+      button {
+        border-radius: 4px;
+        padding: 0px 0.75rem;
+        align-items: center;
+        white-space: nowrap;
+        cursor: pointer;
+        outline: none;
+        height: 2.5rem;
+        border: 1px solid transparent;
+      }
+      #actions {
+        text-align: right;
+      }
+      #run {
+        width: 100px;
+        margin: 20px 0px;
+        background-color: #3448c5;
+        color: white;
+      }
+      #run:disabled {
+        background-color: #949bca;
+      }
+      .event-row {
+        margin: 0;
+        color: #333;
+      }
+      #input-select {
+        border: none;
+        border-bottom: 1px solid;
+        outline: none;
+        font-size: 12px;
+      }
+      #video-wrapper {
+        height: 362px;
+        margin-bottom: 40px;
+        border: 1px solid #eee;
+      }
+      #demo-player {
+        width: 100%;
+        height: 100%;
+      }
+      #events-wrapper {
+        margin-bottom: 40px;
+        background-color: #eee;
+        padding: 20px;
+      }
+      #events {
+        color: #333;
+        overflow: auto;
+        font-family: monospace;
+        font-size: 12px;
+      }
+      .label {
+        font-size: 11px;
+      }
+    </style>
+  </head>
+
+  <body onload="onLoad()">
+    <div id="title">
+      <img
+        src="https://cloudinary-res.cloudinary.com/image/upload/website/cloudinary_web_favicon.png"
+        alt=""
+      />
+      <h1>Cloudinary ABR Streaming on-the-fly</h1>
+    </div>
+    <div id="container">
+      <div id="left">
+        <h2>Upload a video →</h2>
+        <p class="intro">
+          Upload any video file to Cloudinary to be ingested and ready to use.
+        </p>
+        <p class="label">Upload API:</p>
+        <div id="code">
+          POST https://api.cloudinary.com/v1_1/demo/video/upload
+        </div>
+        <pre id="params">  
+{
+  "file": "<span id="input-file" contenteditable="true"></span>"
+}
+        </pre>
+        <div>
+          <span class="label">Select a video to upload</span>
+          <select name="videos" id="input-select" onchange="onSelected();">
+            <option value="marmots">Marmots</option>
+            <option value="snow_horses">Snow Horses</option>
+            <option value="forest_bike">Forest Bike</option>
+            <!-- <option value="sea_turtle">Sea Turtle</option> -->
+            <option value="elephants">Elephants</option>
+            <option value="snow_deer">Snow Deers</option>
+            <option value="kayak">Kayak</option>
+          </select>
+          <span class="label">or bring your own (edit the input URL ☝️)</span>
+        </div>
+        <div id="actions">
+          <button id="run" onclick="onRun()">Run demo</button>
+          <button id="reset" onclick="onReset()">
+            Reset
+          </button>
+        </div>
+        <p class="label">Upload response: <span id="upload-timer"></span></p>
+        <pre id="response"></pre>
+      </div>
+      <div id="right">
+        <h2>And stream it right away</h2>
+        <p class="intro">
+          Watch the video on any device and bandwidth with the best viewing
+          experience.
+        </p>
+        <p class="label">Playback URL:</p>
+        <div id="url">
+          https://res.cloudinary.com/demo/video/upload/sp_auto/{PUBLIC_ID}.m3u8
+        </div>
+        <div id="video-wrapper"></div>
+        <p class="label">Event log:</p>
+        <div id="events-wrapper"></div>
+      </div>
+    </div>
+
+    <script>
+      let responseInit = document.getElementById("response").innerHTML;
+      let rightInit = document.getElementById("right").innerHTML;
+
+      async function postData(url = "", data = {}) {
+        const response = await fetch(url, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify(data) // body data type must match "Content-Type" header
+        });
+        return response.json(); // parses JSON response into native JavaScript objects
+      }
+
+      function onReset() {
+        document.getElementById("response").innerHTML = responseInit;
+        document.getElementById("right").innerHTML = rightInit;
+        document.getElementById("upload-timer").innerHTML = "";
+      }
+
+      function onRun() {
+        let runEl = document.getElementById("run");
+        let runText = runEl.innerHTML;
+        runEl.innerHTML = "Uploading...";
+        runEl.disabled = true;
+        let selected = document.getElementById("input-file").innerHTML;
+
+        let s = 0;
+        let uploadTimer = setInterval(() => {
+          let mins = Math.floor(s / 60)
+            .toString()
+            .padStart(2, "0");
+          let secs = (s % 60).toString().padStart(2, "0");
+          document.getElementById("upload-timer").innerHTML = `${mins}:${secs}`;
+          s++;
+        }, 1000);
+        postData("https://api.cloudinary.com/v1_1/demo/video/upload", {
+          file: selected,
+          upload_preset: "unsigned"
+        }).then((data) => {
+          clearInterval(uploadTimer);
+          runEl.innerHTML = runText;
+          runEl.disabled = false;
+          document.getElementById("response").innerHTML = JSON.stringify(
+            data,
+            null,
+            2
+          );
+
+          document.getElementById("url").innerHTML = data.playback_url;
+          let oldPlayer = document.getElementById("demo-player");
+          if (oldPlayer) {
+            oldPlayer.remove();
+          }
+          let video = document.createElement("video");
+          video.height = 360;
+          video.id = "demo-player";
+          video.controls = true;
+          let video_wrapper = document.getElementById("video-wrapper");
+          video_wrapper.innerHTML = "";
+          video_wrapper.append(video);
+
+          let player = cloudinary.videoPlayer("demo-player", {
+            publicId: data.public_id,
+            cloud_name: "demo",
+            autoplay: true,
+            sourceTypes: ["hls"],
+            seekThumbnails: true,
+            transformation: [{ streaming_profile: "auto" }],
+            analytics: {
+              events: true
+            }
+          });
+
+          let events = document.createElement("div");
+          events.id = "events";
+          let events_wrapper = document.getElementById("events-wrapper");
+          events_wrapper.innerHTML = "";
+          events_wrapper.append(events);
+          eventsInit(player);
+        });
+      }
+
+      function onLoad() {
+        let selected = document.getElementById("input-select").value;
+        let fileUrl = `https://res.cloudinary.com/demo/video/upload/${selected}.mp4`;
+        let urlParams = new URLSearchParams(window.location.search);
+        let fileParam = urlParams.get("file");
+        if (fileParam) {
+          fileUrl = fileParam;
+        }
+
+        document.getElementById("input-file").innerHTML = fileUrl;
+      }
+
+      function onSelected() {
+        let selected = document.getElementById("input-select").value;
+        let fileUrl = `https://res.cloudinary.com/demo/video/upload/${selected}.mp4`;
+
+        document.getElementById("input-file").innerHTML = fileUrl;
+        onReset();
+      }
+
+      function updateOnEvent(eventStr) {
+        let list = document.getElementById("events");
+        let entry = document.createElement("pre");
+        entry.classList.add("event-row");
+        entry.appendChild(document.createTextNode(eventStr));
+        list.appendChild(entry);
+      }
+
+      function checkTime(i) {
+        return i < 10 ? `0${i}` : i;
+      }
+
+      function startTime() {
+        let time = new Date(),
+          h = checkTime(time.getHours()),
+          m = checkTime(time.getMinutes()),
+          s = checkTime(time.getSeconds());
+        return `[${h}:${m}:${s}]`;
+      }
+
+      function eventsInit(player) {
+        let eventTypes = [
+          "qualitychanged",
+          "percentsplayed",
+          "ended",
+          "play",
+          "pause",
+          "seek",
+          "stalled",
+          "waiting",
+          "fullscreenchange"
+        ];
+        eventTypes.forEach(function (eventType) {
+          player.on(eventType, function (event) {
+            let eventStr = `${startTime()} ${eventType}`;
+            if (event.eventData) {
+              eventStr = `${eventStr}: ${JSON.stringify(event.eventData)}`;
+            }
+            updateOnEvent(eventStr);
+          });
+        });
+      }
+    </script>
+  </body>
+</html>
