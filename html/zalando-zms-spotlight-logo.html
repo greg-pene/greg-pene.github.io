@@ -159,6 +159,7 @@
           }
         }, (error, result) => {
           if (result.event == "success") {
+            parseResource(result.info,"Original","f_auto,c_limit,w_2000");
             parseResource(result.info,"Navigation Logo","t_spotlight_nav_logo");
             parseResource(result.info,"Hero Logo","t_spotlight_brand_logo");
           }
