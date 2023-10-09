@@ -53,7 +53,7 @@
     <div class="container mb-5">
       <div class="row">
         <div class="col-12">
-          <h1> Hero Image</h1>
+          <h1>Brand Logo</h1>
         </div>
       </div>
       <div class="row">
@@ -98,7 +98,7 @@
     function loadDefaults() {
       document.getElementById("cloudName").value = "zalando-dam-demo";
       document.getElementById("mediaFolder").value = "ZMS/Spotlight";
-      document.getElementById("uploadPreset").value = "spotlight_jpg_unsigned";
+      document.getElementById("uploadPreset").value = "ml_default";
       return true;
     }
 
@@ -159,11 +159,8 @@
           }
         }, (error, result) => {
           if (result.event == "success") {
-            parseResource(result.info,"Hero Static Desktop","t_spotlight_hero_static_desktop");
-            parseResource(result.info,"Hero Static Desktop (Gen Fill)","t_spotlight_hero_static_desktop_gen_ai");
-            parseResource(result.info,"Hero Static Mobile","t_spotlight_hero_static_mobile");
-//            parseResource(result.info,"Intro Static Desktop","t_spotlight_intro_static_desktop");
-//            parseResource(result.info,"Intro Static Mobile","t_spotlight_intro_static_mobile");
+            parseResource(result.info,"Navigation Logo","t_spotlight_nav_logo");
+            parseResource(result.info,"Hero Logo","t_spotlight_brand_logo");
           }
           if (result.event != "success") {
             console.log(error);
