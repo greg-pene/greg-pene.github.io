@@ -159,6 +159,7 @@
           }
         }, (error, result) => {
           if (result.event == "success") {
+            parseResource(result.info,"Original","");
             parseResource(result.info,"Hero Static Desktop","t_spotlight_hero_static_desktop");
             parseResource(result.info,"Hero Static Desktop (Gen Fill)","t_spotlight_hero_static_desktop_gen_ai");
             parseResource(result.info,"Hero Static Mobile","t_spotlight_hero_static_mobile");
