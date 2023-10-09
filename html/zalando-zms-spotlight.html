@@ -74,18 +74,6 @@
               <input type="text" class="form-control" id="uploadPreset" aria-describedby="uploadPresetHelp">
               <div id="uploadPresetHelp" class="form-text">Enter the upload preset what will run on uploads.</div>
             </div>
-<!--            <div class="mb-3"> 
-              <label for="resultTransformation" class="form-label">Result Transformation</label> -->
-<!--              <input type="text" class="form-control" id="resultTransformation" value="f_auto,q_auto" aria-describedby="resultTransformationHelp"> -->
-<!-- <select id="resultTransformation" name="resultTransformation" class="form-control" aria-describedby="resultTransformationHelp">
-  <option value="t_spotlight_hero_static_desktop">Hero Static Desktop (Crop)</option>
-  <option value="t_spotlight_hero_static_desktop_gen_ai">Hero Static Desktop (Gen Fill)</option>
-  <option value="t_spotlight_hero_static_mobile">Hero Static Mobile (Crop)</option>
-  <option value="t_spotlight_intro_static_desktop">Intro Static Desktop</option>
-  <option value="t_spotlight_intro_static_mobile">Intro Static Mobile</option>
-</select>
-              <div id="resultTransformationHelp" class="form-text">Transformations you would like performed on upload result previews.</div>
-            </div> -->
             <div class="mb-3">
               <input type="submit" class="form-control btn btn-primary" id="mlwSubmit" value="Upload Media">
             </div>
@@ -174,8 +162,8 @@
             parseResource(result.info,"Hero Static Desktop","t_spotlight_hero_static_desktop");
             parseResource(result.info,"Hero Static Desktop (Gen Fill)","t_spotlight_hero_static_desktop_gen_ai");
             parseResource(result.info,"Hero Static Mobile","t_spotlight_hero_static_mobile");
-            parseResource(result.info,"Intro Static Desktop","t_spotlight_intro_static_desktop");
-            parseResource(result.info,"Intro Static Mobile","t_spotlight_intro_static_mobile");
+//            parseResource(result.info,"Intro Static Desktop","t_spotlight_intro_static_desktop");
+//            parseResource(result.info,"Intro Static Mobile","t_spotlight_intro_static_mobile");
           }
           if (result.event != "success") {
             console.log(error);
