@@ -82,7 +82,14 @@
             </div>
             <div class="mb-3">
               <label for="resultTransformation" class="form-label">Result Transformation</label>
-              <input type="text" class="form-control" id="resultTransformation" value="f_auto,q_auto" aria-describedby="resultTransformationHelp">
+//              <input type="text" class="form-control" id="resultTransformation" value="f_auto,q_auto" aria-describedby="resultTransformationHelp">
+<select id="resultTransformation" name="resultTransformation">
+  <option value="t_spotlight_hero_static_desktop">Hero Static Desktop (Crop)</option>
+  <option value="t_spotlight_hero_static_desktop_gen_ai">Hero Static Desktop (Gen Fill)</option>
+  <option value="t_spotlight_hero_static_mobile">Hero Static Mobile (Crop)</option>
+  <option value="t_spotlight_intro_static_desktop">Intro Static Desktop</option>
+  <option value="t_spotlight_intro_static_mobile">Intro Static Mobile</option>
+</select>
               <div id="resultTransformationHelp" class="form-text">Transformations you would like performed on upload result previews.</div>
             </div>
             <div class="mb-3">
