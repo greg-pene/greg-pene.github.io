@@ -80,10 +80,10 @@
               <input type="text" class="form-control" id="uploadPreset" aria-describedby="uploadPresetHelp">
               <div id="uploadPresetHelp" class="form-text">Enter the upload preset what will run on uploads.</div>
             </div>
-            <div class="mb-3">
-              <label for="resultTransformation" class="form-label">Result Transformation</label>
+<!--            <div class="mb-3"> 
+              <label for="resultTransformation" class="form-label">Result Transformation</label> -->
 <!--              <input type="text" class="form-control" id="resultTransformation" value="f_auto,q_auto" aria-describedby="resultTransformationHelp"> -->
-<select id="resultTransformation" name="resultTransformation" class="form-control" aria-describedby="resultTransformationHelp">
+<!-- <select id="resultTransformation" name="resultTransformation" class="form-control" aria-describedby="resultTransformationHelp">
   <option value="t_spotlight_hero_static_desktop">Hero Static Desktop (Crop)</option>
   <option value="t_spotlight_hero_static_desktop_gen_ai">Hero Static Desktop (Gen Fill)</option>
   <option value="t_spotlight_hero_static_mobile">Hero Static Mobile (Crop)</option>
@@ -91,7 +91,7 @@
   <option value="t_spotlight_intro_static_mobile">Intro Static Mobile</option>
 </select>
               <div id="resultTransformationHelp" class="form-text">Transformations you would like performed on upload result previews.</div>
-            </div>
+            </div> -->
             <div class="mb-3">
               <input type="submit" class="form-control btn btn-primary" id="mlwSubmit" value="Upload Media">
             </div>
@@ -177,7 +177,11 @@
           }
         }, (error, result) => {
           if (result.event == "success") {
-            parseResource(result.info);
+            parseResource(result.info,"Hero Static Desktop","t_spotlight_hero_static_desktop");
+            parseResource(result.info,"Hero Static Desktop (Gen Fill)","t_spotlight_hero_static_desktop_gen_ai");
+            parseResource(result.info,"Hero Static Mobile","t_spotlight_hero_static_mobile");
+            parseResource(result.info,"Intro Static Desktop","t_spotlight_intro_static_desktop");
+            parseResource(result.info,"Intro Static Mobile","t_spotlight_intro_static_mobile");
           }
           if (result.event != "success") {
             console.log(error);
@@ -187,18 +191,18 @@
       return false;
     }
 
-    function parseResource(resource) {
+    function parseResource(resource,txname,tx) {
       console.log(resource);
 
       let tags = parseTags(resource.tags);
       let secure_url_l = resource.secure_url.split(/v\d{10,15}/)[0];
       let secure_url_r = resource.secure_url.split(/v\d{10,15}/)[1];
-      let transformations = document.getElementById("resultTransformation").value;
+//      let transformations = document.getElementById("resultTransformation").value;
 
       let br = document.createElement("br");
       let image = document.createElement("img");
-      image.src = secure_url_l+transformations+secure_url_r;
-      image.alt = "greg";
+      image.src = secure_url_l+tx+secure_url_r;
+      image.alt = txname;
 
       let blockquote = document.createElement("blockquote");
       blockquote.setAttribute("class","blockquote mt-2");
@@ -208,7 +212,7 @@
 
       let p = document.createElement("p");
       p.setAttribute("class","text-center pt-5");
-      p.innerHTML = "ZMS Spotlight Preview";
+      p.innerHTML = txname;
 
       let rquote = document.createElement("i");
       rquote.setAttribute("class","fa-solid fa-quote-right float-end fs-1 mb-3");
