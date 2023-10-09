@@ -1,0 +1,238 @@
+<html>
+
+<head>
+  <link rel="stylesheet" href="../css/reset.css" />
+  <link rel="stylesheet" href="../css/app.css" />
+  <link rel="stylesheet" href="../css/static.css" />
+  
+  <link rel="icon" href="../favicon-32x32.png" type="image/png" />
+  <style>
+    pre {
+      white-space: pre;
+      -moz-tab-size:    4; /* Firefox 4+ */
+      -o-tab-size:      4; /* Opera 11.5 & 12.1 only */
+      tab-size:         4; /* Chrome 21+, Safari 6.1+, Opera 15+ */
+      background: #333;
+      color: #fff;
+      padding-top: 1em;
+      padding-bottom: 1em;
+    }
+    caption {
+      display: block;
+    }
+  </style>
+</head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-T3YHZ4E33J"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-T3YHZ4E33J');
+</script>
+<script src="https://kit.fontawesome.com/0bd3a288d2.js" crossorigin="anonymous"></script>
+<title>Cloudinary | ZMS Spotlight Demo</title>
+
+<body>
+  <header>
+    <div class="inner">
+      <div class="logo">
+        <a href="/"><img width="156" height="30" src="https://res.cloudinary.com/ttran-se-cloudinary/image/upload/c_scale,dpr_2.0,w_150/v1/logos/cld/cloudinary_logo_for_white_bg"></a>
+      </div>
+      <div class="title">
+        <h1 class="text-primary">Zalando ZMS</h1>
+      </div>
+    </div>
+  </header>
+  <main>
+    <div class="container mt-5 mb-5">
+      <h1 class="text-primary">Spotlight Demo</h1>
+    </div>
+
+    <div class="container mb-5">
+      <div class="row">
+        <div class="col-12">
+          <h1> Hero Image</h1>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-4 p-3">
+          <form name="mlwForm" onsubmit="return loadUw();">
+            <div class="mb-3">
+              <label for="cloudName" class="form-label">Cloud Name</label>
+              <input type="text" class="form-control" id="cloudName" aria-describedby="cloudNameHelp">
+              <div id="cloudNameHelp" class="form-text">You can find your Cloud Name on your Cloudinary Dashboard.</div>
+            </div>
+            <div class="mb-3">
+              <label for="mediaFolder" class="form-label">Media Library Folder</label>
+              <input type="text" class="form-control" id="mediaFolder" aria-describedby="mediaFolderHelp">
+              <div id="mediaFolderHelp" class="form-text">Enter the folder that the uploader will upload files into.</div>
+            </div>
+            <div class="mb-3">
+              <label for="uploadPreset" class="form-label">Upload Preset</label>
+              <input type="text" class="form-control" id="uploadPreset" aria-describedby="uploadPresetHelp">
+              <div id="uploadPresetHelp" class="form-text">Enter the upload preset what will run on uploads.</div>
+            </div>
+            <div class="mb-3">
+              <input type="submit" class="form-control btn btn-primary" id="mlwSubmit" value="Upload Media">
+            </div>
+          </form>
+          <div class="mb-3">
+            <button class="form-control btn btn-info" id="uwDefault" onclick="loadDefaults()">Load Default Upload Widget Settings</button>
+          </div>            
+        </div>
+        <div class="col-8" id="uwOutputContainer">
+          <div id="uwOutputWidget"></div>
+          <div id="uwOutputVideos">
+          </div>
+          <div id="uwOutputImages">
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+  <script src="https://upload-widget.cloudinary.com/global/all.js" type="text/javascript"></script>
+
+  <script type="text/javascript">
+    function loadDefaults() {
+      document.getElementById("cloudName").value = "zalando-dam-demo";
+      document.getElementById("mediaFolder").value = "ZMS/Spotlight";
+      document.getElementById("uploadPreset").value = "spotlight_jpg_unsigned";
+      return true;
+    }
+
+    function loadUw() {
+      let sources = ["local",
+      "url",
+      "unsplash",
+      "image_search",
+      "shutterstock",
+      "istock",
+      "gettyimages"];
+
+      let palette = {
+        window: "#3448C5",
+        windowBorder: "#0C163B",
+        tabIcon: "#FFFFFF",
+        menuIcons: "#FFFFFF",
+        textDark: "#0C163B",
+        textLight: "#FFFFFF",
+        link: "#F7BC00",
+        action: "#FF5050",
+        inactiveTabIcon: "#B6D2FF",
+        error: "#FF5050",
+        inProgress: "#0078FF",
+        complete: "#48C4D8",
+        sourceBg: "#eeeef1"
+      };
+
+      let frame = {
+        background: "#FFFFFF"
+      }
+
+      let fonts = {
+        default: null,
+        "'Inter', sans-serif": {
+          url: "https://rsms.me/inter/inter.css",
+          active: true
+        }
+      };
+
+      let cloudName = document.getElementById("cloudName").value;
+      let folder = document.getElementById("mediaFolder").value;
+      let uploadPreset = document.getElementById("uploadPreset").value;
+
+      var myWidget = cloudinary.openUploadWidget({
+        cloudName: cloudName,
+        folder: folder,
+        upload_preset: uploadPreset,
+        showAdvancedOptions: true,
+        showCompletedButton: true,
+        multiple: true,
+        inlineContainer: "#uwOutputWidget",
+        sources: sources,
+        styles: {
+          palette: palette,
+          frame: frame,
+          fonts: fonts
+          }
+        }, (error, result) => {
+          if (result.event == "success") {
+            parseResource(result.info,"Hero Static Desktop","t_spotlight_hero_static_desktop");
+            parseResource(result.info,"Hero Static Desktop (Gen Fill)","t_spotlight_hero_static_desktop_gen_ai");
+            parseResource(result.info,"Hero Static Mobile","t_spotlight_hero_static_mobile");
+//            parseResource(result.info,"Intro Static Desktop","t_spotlight_intro_static_desktop");
+//            parseResource(result.info,"Intro Static Mobile","t_spotlight_intro_static_mobile");
+          }
+          if (result.event != "success") {
+            console.log(error);
+          }
+        }
+      );
+      return false;
+    }
+
+    function parseResource(resource,txname,tx) {
+      console.log(resource);
+
+      let tags = parseTags(resource.tags);
+      let secure_url_l = resource.secure_url.split(/v\d{10,15}/)[0];
+      let secure_url_r = resource.secure_url.split(/v\d{10,15}/)[1];
+//      let transformations = document.getElementById("resultTransformation").value;
+
+      let br = document.createElement("br");
+      let image = document.createElement("img");
+      image.src = secure_url_l+tx+secure_url_r;
+      image.alt = txname;
+
+      let blockquote = document.createElement("blockquote");
+      blockquote.setAttribute("class","blockquote mt-2");
+
+      let lquote = document.createElement("i");
+      lquote.setAttribute("class","fa-solid fa-quote-left float-start fs-1");
+
+      let p = document.createElement("p");
+      p.setAttribute("class","text-center pt-5");
+      p.innerHTML = txname;
+
+      let rquote = document.createElement("i");
+      rquote.setAttribute("class","fa-solid fa-quote-right float-end fs-1 mb-3");
+      
+//      blockquote.appendChild(lquote);
+      blockquote.appendChild(p);
+//      blockquote.appendChild(rquote);
+      
+      document.getElementById("uwOutputImages").appendChild(br);
+      document.getElementById("uwOutputImages").appendChild(blockquote);
+      document.getElementById("uwOutputImages").appendChild(image);
+    }
+
+    function parseTags(tags) {
+      let tagHTML = '';
+      tags.forEach((tag) => {
+        tagHTML += '<span class="badge bg-primary">'+tag+'</span> ';
+      });
+      return tagHTML;
+    }
+
+    function init() {
+      let queryString = window.location.search;
+      let urlParams = new URLSearchParams(queryString);
+      let cloudName = urlParams.get("cloudName");
+      let folder = urlParams.get("mediaFolder");
+      let uploadPreset = urlParams.get("uploadPreset");
+
+      if (cloudName == null || folder == null || uploadPreset == null) {
+        loadDefaults();
+      } else {
+        document.getElementById("cloudName").value = cloudName;
+        document.getElementById("mediaFolder").value = folder;
+        document.getElementById("uploadPreset").value = uploadPreset;
+      }
+    }
+    window.onload = init();
+  </script>
+</body>
+
+</html>
