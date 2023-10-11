@@ -32,7 +32,7 @@
   gtag('config', 'G-T3YHZ4E33J');
 </script>
 <script src="https://kit.fontawesome.com/0bd3a288d2.js" crossorigin="anonymous"></script>
-<title>Cloudinary SE Tools | AI-Based Image Captioning Demo</title>
+<title>Cloudinary | Partner Product Normalisation Demo</title>
 
 <body>
   <header>
@@ -41,25 +41,19 @@
         <a href="/"><img width="156" height="30" src="https://res.cloudinary.com/ttran-se-cloudinary/image/upload/c_scale,dpr_2.0,w_150/v1/logos/cld/cloudinary_logo_for_white_bg"></a>
       </div>
       <div class="title">
-        <h1 class="text-primary">Sales Engineering</h1>
+        <h1 class="text-primary">Zalando Partners</h1>
       </div>
     </div>
   </header>
   <main>
     <div class="container mt-5 mb-5">
-      <h1 class="text-primary">Cloudinary AI-Based Image Captioning</h1>
+      <h1 class="text-primary">Partner Products Normalisation</h1>
     </div>
 
     <div class="container mb-5">
       <div class="row">
         <div class="col-12">
-          <p>
-            Cloudinary's <a href="https://cloudinary.com/documentation/cloudinary_ai_content_analysis_addon#ai_based_image_captioning">AI-based image captioning</a> be used to analyze an image and suggest a caption based on the image's contents.
-          </p>
-          <hr />
-          <p>
-            If you would like to preview what AI-based image captioning Clouidnary would create for your images, upload those images using the <a href="https://cloudinary.com/documentation/upload_widget">Cloudinary Upload Widget</a> on this page.
-          </p>
+          <h1>Brand Logo</h1>
         </div>
       </div>
       <div class="row">
@@ -81,11 +75,6 @@
               <div id="uploadPresetHelp" class="form-text">Enter the upload preset what will run on uploads.</div>
             </div>
             <div class="mb-3">
-              <label for="resultTransformation" class="form-label">Result Transformation</label>
-              <input type="text" class="form-control" id="resultTransformation" value="f_auto,q_auto" aria-describedby="resultTransformationHelp">
-              <div id="resultTransformationHelp" class="form-text">Transformations you would like performed on upload result previews.</div>
-            </div>
-            <div class="mb-3">
               <input type="submit" class="form-control btn btn-primary" id="mlwSubmit" value="Upload Media">
             </div>
           </form>
@@ -97,7 +86,7 @@
           <div id="uwOutputWidget"></div>
           <div id="uwOutputVideos">
           </div>
-          <div id="uwOutputImages">
+          <div id="uwOutputImages" style="background-color:#D3D3D3">
           </div>
         </div>
       </div>
@@ -107,9 +96,9 @@
 
   <script type="text/javascript">
     function loadDefaults() {
-      document.getElementById("cloudName").value = "zalando-dam-demo";
-      document.getElementById("mediaFolder").value = "Partner";
-      document.getElementById("uploadPreset").value = "default_unsigned";
+      document.getElementById("cloudName").value = "gpene";
+      document.getElementById("mediaFolder").value = "Partners";
+      document.getElementById("uploadPreset").value = "default";
       return true;
     }
 
@@ -170,7 +159,9 @@
           }
         }, (error, result) => {
           if (result.event == "success") {
-            parseResource(result.info, document.getElementById("resultTransformation").value, document.getElementById("resultTransformation").value);
+            parseResource(result.info,"Full Model","rl_z_model");
+            parseResource(result.info,"Cropped Model","rl_z_partial_model");
+            parseResource(result.info,"Packshot","rl_z_product");
           }
           if (result.event != "success") {
             console.log(error);
@@ -214,7 +205,7 @@
       document.getElementById("uwOutputImages").appendChild(blockquote);
       document.getElementById("uwOutputImages").appendChild(image);
     }
-    
+
     function parseTags(tags) {
       let tagHTML = '';
       tags.forEach((tag) => {
