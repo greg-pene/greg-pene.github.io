@@ -170,7 +170,7 @@
           }
         }, (error, result) => {
           if (result.event == "success") {
-            parseResource(result.info);
+            parseResource(result.info, document.getElementById("resultTransformation").value, document.getElementById("resultTransformation").value);
           }
           if (result.event != "success") {
             console.log(error);
@@ -180,18 +180,18 @@
       return false;
     }
 
-    function parseResource(resource) {
+    function parseResource(resource,txname,tx) {
       console.log(resource);
 
       let tags = parseTags(resource.tags);
       let secure_url_l = resource.secure_url.split(/v\d{10,15}/)[0];
       let secure_url_r = resource.secure_url.split(/v\d{10,15}/)[1];
-      let transformations = document.getElementById("resultTransformation").value;
+//      let transformations = document.getElementById("resultTransformation").value;
 
       let br = document.createElement("br");
       let image = document.createElement("img");
-      image.src = secure_url_l+transformations+secure_url_r;
-      image.alt = resource.info.detection.captioning.data.caption;
+      image.src = secure_url_l+tx+secure_url_r;
+      image.alt = txname;
 
       let blockquote = document.createElement("blockquote");
       blockquote.setAttribute("class","blockquote mt-2");
@@ -201,20 +201,20 @@
 
       let p = document.createElement("p");
       p.setAttribute("class","text-center pt-5");
-      p.innerHTML = resource.info.detection.captioning.data.caption;
+      p.innerHTML = txname;
 
       let rquote = document.createElement("i");
       rquote.setAttribute("class","fa-solid fa-quote-right float-end fs-1 mb-3");
       
-      blockquote.appendChild(lquote);
+//      blockquote.appendChild(lquote);
       blockquote.appendChild(p);
-      blockquote.appendChild(rquote);
+//      blockquote.appendChild(rquote);
       
       document.getElementById("uwOutputImages").appendChild(br);
       document.getElementById("uwOutputImages").appendChild(blockquote);
       document.getElementById("uwOutputImages").appendChild(image);
     }
-
+    
     function parseTags(tags) {
       let tagHTML = '';
       tags.forEach((tag) => {
