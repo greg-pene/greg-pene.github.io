@@ -159,9 +159,8 @@
           }
         }, (error, result) => {
           if (result.event == "success") {
-            parseResource(result.info,"Full Model","t_zalando_partner_model");
-            parseResource(result.info,"Cropped Model","t_rl_z_partial_model");
-            parseResource(result.info,"Packshot","t_rl_z_product");
+            parseResource(result.info,"Model","t_zalando_partner_model");
+            parseResource(result.info,"Product","t_zalando_partner_product");
           }
           if (result.event != "success") {
             console.log(error);
