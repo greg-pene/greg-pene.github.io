@@ -75,6 +75,11 @@
               <div id="uploadPresetHelp" class="form-text">Enter the upload preset what will run on uploads.</div>
             </div>
             <div class="mb-3">
+              <label for="brandLogo" class="form-label">Brand Logo</label>
+              <input type="text" class="form-control" id="brandLogo" aria-describedby="brandLogoHelp">
+              <div id="brandLogoHelp" class="form-text">Enter the Brand Logo you want to use on asset creation.</div>
+            </div>
+            <div class="mb-3">
               <input type="submit" class="form-control btn btn-primary" id="mlwSubmit" value="Upload Media">
             </div>
           </form>
@@ -99,6 +104,7 @@
       document.getElementById("cloudName").value = "zalando-dam-demo";
       document.getElementById("mediaFolder").value = "ZMS/Spotlight/Demo";
       document.getElementById("uploadPreset").value = "spotlight_jpg_unsigned";
+      document.getElementById("brandLogo").value = "adidas";
       return true;
     }
 
@@ -142,6 +148,7 @@
       let cloudName = document.getElementById("cloudName").value;
       let folder = document.getElementById("mediaFolder").value;
       let uploadPreset = document.getElementById("uploadPreset").value;
+      let brandLogo = document.getElementById("brandLogo").value;
 
       var myWidget = cloudinary.openUploadWidget({
         cloudName: cloudName,
@@ -160,10 +167,8 @@
         }, (error, result) => {
           if (result.event == "success") {
             parseResource(result.info,"Original","f_auto,c_limit,w_2000");
-            parseResource(result.info,"Hero Static Desktop","t_spotlight_hero_static_desktop");
-            parseResource(result.info,"Hero Static Mobile","t_spotlight_hero_static_mobile");
-//            parseResource(result.info,"Intro Static Desktop","t_spotlight_intro_static_desktop");
-//            parseResource(result.info,"Intro Static Mobile","t_spotlight_intro_static_mobile");
+            parseResource(result.info,"Hero Static Desktop","$logo_"+brandLogo+"/t_spotlight_intro_static_desktop");
+            parseResource(result.info,"Hero Static Mobile",""$logo_"+brandLogo+"/t_spotlight_intro_static_mobile");
           }
           if (result.event != "success") {
             console.log(error);
@@ -222,13 +227,15 @@
       let cloudName = urlParams.get("cloudName");
       let folder = urlParams.get("mediaFolder");
       let uploadPreset = urlParams.get("uploadPreset");
+      let brandLogo = urlParams.get("brandLogo");
 
-      if (cloudName == null || folder == null || uploadPreset == null) {
+      if (cloudName == null || folder == null || uploadPreset == null || brandLogo == null) {
         loadDefaults();
       } else {
         document.getElementById("cloudName").value = cloudName;
         document.getElementById("mediaFolder").value = folder;
         document.getElementById("uploadPreset").value = uploadPreset;
+        document.getElementById("brandLogo").value = brandLogo;
       }
     }
     window.onload = init();
