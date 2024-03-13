@@ -88,7 +88,7 @@
 		</center>
 	</body>
 	<script>
-function showOriginalUploadWidget() { cloudinary.openUploadWidget({    cloudName: "vmaf",    uploadPreset: "upload_original_video",    sources: [        "local",        "google_drive",        "url"    ],    googleApiKey: "<image_search_google_api_key>",    showAdvancedOptions: true,    cropping: false,    multiple: true,    defaultSource: "local",    styles: {        palette: {            window: "#FFFFFF",
+function showOriginalUploadWidget() { cloudinary.openUploadWidget({    cloudName: "vmaf",    uploadPreset: "upload_original_video",    sources: [        "local",        "google_drive",        "url",        "dropbox"    ],    googleApiKey: "<image_search_google_api_key>",    showAdvancedOptions: true,    cropping: false,    multiple: true,    defaultSource: "local",    styles: {        palette: {            window: "#FFFFFF",
             windowBorder: "#90A0B3",
             tabIcon: "#0078FF",
             menuIcons: "#5A616A",
@@ -101,7 +101,7 @@ function showOriginalUploadWidget() { cloudinary.openUploadWidget({    cloudName
             inProgress: "#0078FF",
             complete: "#20B832",
             sourceBg: "#E4EBF1"},        fonts: {            default: null,            "'Fira Sans', sans-serif": {                url: "https://fonts.googleapis.com/css?family=Fira+Sans",                active: true            }        }    }}, (err, info) => {   if (!err) {         console.log("Upload Widget event - ", info);   }  }); }
-function showDerivedUploadWidget() { cloudinary.openUploadWidget({    cloudName: "vmaf",    uploadPreset: "upload_derived_video",    sources: [        "local",        "google_drive",        "url"    ],    googleApiKey: "<image_search_google_api_key>",    showAdvancedOptions: true,    cropping: false,    multiple: true,    defaultSource: "local",    styles: {        palette: {            window: "#FFFFFF",
+function showDerivedUploadWidget() { cloudinary.openUploadWidget({    cloudName: "vmaf",    uploadPreset: "upload_derived_video",    sources: [        "local",        "google_drive",        "url",        "dropbox"    ],    googleApiKey: "<image_search_google_api_key>",    showAdvancedOptions: true,    cropping: false,    multiple: true,    defaultSource: "local",    styles: {        palette: {            window: "#FFFFFF",
             windowBorder: "#90A0B3",
             tabIcon: "#0078FF",
             menuIcons: "#5A616A",
