@@ -1,4 +1,4 @@
-
+as
 <!doctype html>
 <html>
 	<head>
@@ -90,6 +90,6 @@
 		</center>
 	</body>
 	<script>
-function showUploadWidget() { cloudinary.openUploadWidget({    cloudName: "maje",    uploadPreset: "ulw_preset",    sources: [        "local",        "url",        "camera",        "instagram",        "facebook",        "google_drive",        "dropbox",        "getty"    ],    googleApiKey: "<image_search_google_api_key>",    showAdvancedOptions: false,    cropping: false,    multiple: true,    defaultSource: "local",    styles: {        palette: {            window: "#FFFFFF",            windowBorder: "#000000",            tabIcon: "#FD3157",            menuIcons: "#BB2222",            textDark: "#000000",            textLight: "#FFFFFF",            link: "#FD3157",            action: "#FF620C",            inactiveTabIcon: "#000000",            error: "#F44235",            inProgress: "#0078FF",            complete: "#20B832",            sourceBg: "#FFFFFF"        },        fonts: {            default: null,            "sans-serif": {                url: null,                active: true            }        }    }}, (err, info) => {   if (!err) {         console.log("Upload Widget event - ", info);   }  }); }
+function showUploadWidget() { cloudinary.openUploadWidget({    cloudName: "gpene3",    uploadPreset: "upload_widget",    sources: [        "local",        "google_drive",        "dropbox"    ],    googleApiKey: "<image_search_google_api_key>",    showAdvancedOptions: false,    cropping: false,    multiple: true,    defaultSource: "local",    styles: {        palette: {            window: "#FFFFFF",            windowBorder: "#90A0B3",            tabIcon: "#ED1847",            menuIcons: "#5A616A",            textDark: "#000000",            textLight: "#FFFFFF",            link: "#ED1847",            action: "#FF620C",            inactiveTabIcon: "#0E2F5A",            error: "#F44235",            inProgress: "#ED1847",            complete: "#20B832",            sourceBg: "#E4EBF1"        },        fonts: {            default: null,            "'Fira Sans', sans-serif": {                url: "https://fonts.googleapis.com/css?family=Fira+Sans",                active: true            }        }    }}, (err, info) => {   if (!err) {         console.log("Upload Widget event - ", info);   }  }); }
 	</script>
 </html>
