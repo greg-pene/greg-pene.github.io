@@ -1,0 +1,95 @@
+
+<!doctype html>
+<html>
+	<head>
+		<title>Upload your Media | Cloudinary</title>
+		<link href='https://cloudinary-res.cloudinary.com/image/upload/docsite/brand-assets/cloudinary_favicon_apple-touch-icon-57x57.png' rel='apple-touch-icon' sizes='57x57'>
+		<link href='https://cloudinary-res.cloudinary.com/image/upload/docsite/brand-assets/cloudinary_favicon_apple-touch-icon-114x114.png' rel='apple-touch-icon' sizes='114x114'>
+		<link href='https://cloudinary-res.cloudinary.com/image/upload/docsite/brand-assets/cloudinary_favicon_apple-touch-icon-72x72.png' rel='apple-touch-icon' sizes='72x72'>
+		<link href='https://cloudinary-res.cloudinary.com/image/upload/docsite/brand-assets/cloudinary_favicon_apple-touch-icon-144x144.png' rel='apple-touch-icon' sizes='144x144'>
+		<link href='https://cloudinary-res.cloudinary.com/image/upload/docsite/brand-assets/cloudinary_favicon_apple-touch-icon-60x60.png' rel='apple-touch-icon' sizes='60x60'>
+		<link href='https://cloudinary-res.cloudinary.com/image/upload/docsite/brand-assets/cloudinary_favicon_apple-touch-icon-120x120.png' rel='apple-touch-icon' sizes='120x120'>
+		<link href='https://cloudinary-res.cloudinary.com/image/upload/docsite/brand-assets/cloudinary_favicon_apple-touch-icon-76x76.png' rel='apple-touch-icon' sizes='76x76'>
+		<link href='https://cloudinary-res.cloudinary.com/image/upload/docsite/brand-assets/cloudinary_favicon_apple-touch-icon-152x152.png' rel='apple-touch-icon' sizes='152x152'>
+		<link href='https://cloudinary-res.cloudinary.com/image/upload/docsite/brand-assets/cloudinary_favicon_192x192.png' rel='apple-touch-icon' sizes='180x180'>
+		<link href='https://cloudinary-res.cloudinary.com/image/upload/docsite/brand-assets/cloudinary_favicon_192x192.png' rel='icon' sizes='192x192' type='image/png'>
+		<link href='https://cloudinary-res.cloudinary.com/image/upload/docsite/brand-assets/cloudinary_favicon_apple-touch-icon-152x152.png' rel='icon' sizes='160x160' type='image/png'>
+		<link href='https://cloudinary-res.cloudinary.com/image/upload/docsite/brand-assets/cloudinary_favicon_96x96.png' rel='icon' sizes='96x96' type='image/png'>
+		<link href='https://cloudinary-res.cloudinary.com/image/upload/docsite/brand-assets/cloudinary_favicon_16x16.png' rel='icon' sizes='16x16' type='image/png'>
+		<link href='https://cloudinary-res.cloudinary.com/image/upload/docsite/brand-assets/cloudinary_favicon_32x32.png' rel='icon' sizes='32x32' type='image/png'>
+		<script src="https://upload-widget.cloudinary.com/global/all.js" type="text/javascript"></script>
+		<style>
+.container {
+  position: relative;
+  width: 100%;
+  max-width: 1080px;
+}
+
+.container img {
+  width: 100%;
+  height: auto;
+}
+
+.container .btn {
+    position: absolute;
+    top: 60%;
+    left: 60%;
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    background-color: #CEF501;
+    color: #000000;
+    font-size: 16px;
+    padding: 12px 24px;
+    border: none;
+    cursor: pointer;
+    border-radius: 30px;
+    text-align: center;
+}
+
+.container .msg {
+    position: absolute;
+    top: 20%;
+    left: 50%;
+    /* transform: translate(-50%, -50%); */
+    -ms-transform: translate(-50%, -50%);
+    color: #FFFFFF;
+    font-size: 42px;
+    border: none;
+    text-align: left;
+    padding: 12px 24px;
+}
+			
+.container .btn:hover {
+  background-color: black;
+  color: #FFFFFF
+}		
+			
+			body {
+			    -webkit-font-smoothing: antialiased;
+			    -moz-osx-font-smoothing: grayscale;
+			    color: #101010;
+			    font-size: 12px;
+			    font-family: Helvetica, Arial, sans-serif;
+			}
+		</style>
+	</head>
+	<body>
+		<noscript><strong>We're sorry but this Demo page doesn't work properly without JavaScript enabled. Please enable it to continue.</strong></noscript>
+		<center>
+		<br><br><br>
+		<img src=https://res.cloudinary.com/kering-poc/image/upload/v1757515403/ysl-logo-white.png>
+		<br><br><br>
+		<div class="container">
+			<p class="msg">PLEASE UPLOAD THE HIGHEST POSSIBLE QUALITY MEDIA</p>
+			<img src="https://res.cloudinary.com/gpene3/image/upload/c_limit,w_600/f_auto/q_auto/v1757942507/ecom-SAINT-LAURENT_MFALL25_HP_Desktop.jpg">
+			<div class="opener-wrapper" style="text-align: center; margin-bottom: 30px;">
+				<button id="upload-btn" onclick="showUploadWidget()" class="btn">Upload</button>
+			</div>
+		</div>
+		<br><br><br>	
+		</center>
+	</body>
+	<script>
+function showUploadWidget() { cloudinary.openUploadWidget({    cloudName: "kering-poc",    uploadPreset: "external-upload",    sources: [        "local",        "url",        "camera",        "instagram",        "facebook",        "google_drive",        "dropbox",        "getty"    ],    googleApiKey: "<image_search_google_api_key>",    showAdvancedOptions: false,    cropping: false,    multiple: true,    defaultSource: "local",    styles: {        palette: {            window: "#FFFFFF",            windowBorder: "#000000",            tabIcon: "#FD3157",            menuIcons: "#BB2222",            textDark: "#000000",            textLight: "#FFFFFF",            link: "#FD3157",            action: "#FF620C",            inactiveTabIcon: "#000000",            error: "#F44235",            inProgress: "#0078FF",            complete: "#20B832",            sourceBg: "#FFFFFF"        },        fonts: {            default: null,            "sans-serif": {                url: null,                active: true            }        }    }}, (err, info) => {   if (!err) {         console.log("Upload Widget event - ", info);   }  }); }
+	</script>
+</html>
