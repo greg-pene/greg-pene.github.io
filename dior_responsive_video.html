@@ -61,13 +61,20 @@
         }
 
         .logo {
-            font-family: 'Cormorant Garamond', 'Didot', Georgia, serif;
-            font-size: 1.75rem;
-            font-weight: 400;
-            letter-spacing: 0.35em;
-            text-transform: uppercase;
-            color: var(--black);
+            display: flex;
+            align-items: center;
             text-decoration: none;
+        }
+
+        .logo img {
+            height: 22px;
+            width: auto;
+        }
+
+        @media (min-width: 769px) {
+            .logo img {
+                height: 28px;
+            }
         }
 
         /* Page Title */
@@ -514,7 +521,9 @@
 </head>
 <body>
     <header>
-        <a href="#" class="logo">Dior</a>
+        <a href="#" class="logo" aria-label="Dior">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a8/Dior_Logo.svg/1280px-Dior_Logo.svg.png" alt="Dior">
+        </a>
     </header>
 
     <section class="page-title">
