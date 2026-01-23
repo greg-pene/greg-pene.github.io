@@ -323,14 +323,16 @@
             gap: 0.5rem;
         }
 
-        /* Video Container */
+        /* Video Container - Full Width */
         .video-section {
             background: var(--white);
-            border-radius: var(--radius-lg);
             overflow: hidden;
-            box-shadow: var(--shadow-md);
-            border: 1px solid var(--gray-200);
+            box-shadow: var(--shadow-lg);
             margin-bottom: 2rem;
+            width: 100vw;
+            position: relative;
+            left: 50%;
+            transform: translateX(-50%);
         }
 
         .video-wrapper {
@@ -936,32 +938,45 @@
 
         /**
          * Parse a Cloudinary URL and insert a transformation
+         * Ensures transformations are placed before /v.../ version segment
          */
         function addCloudinaryTransformation(url, transformation) {
-            const cloudinaryRegex = /^(https?:\/\/res\.cloudinary\.com\/[^\/]+\/video\/upload)(\/[^\/]+)?(\/.*?)(\.[a-zA-Z0-9]+)?$/;
+            const uploadIndex = url.indexOf('/upload/');
+            if (uploadIndex === -1) {
+                return null;
+            }
             
-            const match = url.match(cloudinaryRegex);
+            const afterUpload = url.slice(uploadIndex + 8); // Everything after /upload/
+            const base = url.slice(0, uploadIndex + 8); // Up to and including /upload/
             
-            if (match) {
-                const base = match[1];
-                const existingTransforms = match[2] || '';
-                const publicId = match[3];
-                const extension = match[4] || '';
+            // Check for version segment /v<numbers>/
+            const versionMatch = afterUpload.match(/^(.*?)(\/v\d+\/)/);
+            
+            if (versionMatch) {
+                // URL has a version segment
+                const existingTransforms = versionMatch[1]; // transforms before /v.../
+                const versionAndRest = afterUpload.slice(existingTransforms.length); // /v.../ and everything after
                 
                 if (existingTransforms) {
-                    return `${base}${existingTransforms}/${transformation}${publicId}${extension}`;
+                    // Has existing transforms: /upload/<transforms>/v.../...
+                    return `${base}${existingTransforms}/${transformation}${versionAndRest}`;
                 } else {
-                    return `${base}/${transformation}${publicId}${extension}`;
+                    // No existing transforms: /upload/v.../...
+                    return `${base}${transformation}${versionAndRest}`;
+                }
+            } else {
+                // No version segment, check for existing transforms
+                const parts = afterUpload.split('/');
+                const hasTransform = parts[0] && /^[a-z]_/.test(parts[0]);
+                
+                if (hasTransform) {
+                    // Has existing transform: /upload/<transform>/...
+                    return `${base}${parts[0]}/${transformation}/${parts.slice(1).join('/')}`;
+                } else {
+                    // No transform: /upload/<public_id>
+                    return `${base}${transformation}/${afterUpload}`;
                 }
             }
-            
-            const uploadIndex = url.indexOf('/upload/');
-            if (uploadIndex !== -1) {
-                const insertPosition = uploadIndex + 8;
-                return url.slice(0, insertPosition) + transformation + '/' + url.slice(insertPosition);
-            }
-            
-            return null;
         }
 
         /**
