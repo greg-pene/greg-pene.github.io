@@ -677,32 +677,47 @@
          * Supports URLs with or without existing transformations
          */
         function addCloudinaryTransformation(url, transformation) {
-            // Cloudinary URL pattern: 
-            // https://res.cloudinary.com/<cloud>/video/upload[/existing_transforms]/<public_id>
-            const cloudinaryRegex = /^(https?:\/\/res\.cloudinary\.com\/[^\/]+\/video\/upload)(\/[^\/]+)?(\/.*?)(\.[a-zA-Z0-9]+)?$/;
-            
-            const match = url.match(cloudinaryRegex);
-            
-            if (match) {
-                const base = match[1];
-                const existingTransforms = match[2] || '';
-                const publicId = match[3];
-                const extension = match[4] || '';
-                
-                if (existingTransforms) {
-                    return `${base}${existingTransforms}/${transformation}${publicId}${extension}`;
-                } else {
-                    return `${base}/${transformation}${publicId}${extension}`;
-                }
-            }
+            // Cloudinary URL patterns:
+            // https://res.cloudinary.com/<cloud>/video/upload/v1234567890/<public_id>
+            // https://res.cloudinary.com/<cloud>/video/upload/<transforms>/v1234567890/<public_id>
+            // https://res.cloudinary.com/<cloud>/video/upload/<public_id>
             
             const uploadIndex = url.indexOf('/upload/');
-            if (uploadIndex !== -1) {
-                const insertPosition = uploadIndex + 8;
-                return url.slice(0, insertPosition) + transformation + '/' + url.slice(insertPosition);
+            if (uploadIndex === -1) {
+                return null;
             }
             
-            return null;
+            const afterUpload = url.slice(uploadIndex + 8); // Everything after /upload/
+            const base = url.slice(0, uploadIndex + 8); // Up to and including /upload/
+            
+            // Check for version segment /v<numbers>/
+            const versionMatch = afterUpload.match(/^(.*?)(\/v\d+\/)/);
+            
+            if (versionMatch) {
+                // URL has a version segment
+                const existingTransforms = versionMatch[1]; // transforms before /v.../
+                const versionAndRest = afterUpload.slice(existingTransforms.length); // /v.../ and everything after
+                
+                if (existingTransforms) {
+                    // Has existing transforms: /upload/<transforms>/v.../...
+                    return `${base}${existingTransforms}/${transformation}${versionAndRest}`;
+                } else {
+                    // No existing transforms: /upload/v.../...
+                    return `${base}${transformation}${versionAndRest}`;
+                }
+            } else {
+                // No version segment, check for existing transforms
+                const parts = afterUpload.split('/');
+                const hasTransform = parts[0] && /^[a-z]_/.test(parts[0]);
+                
+                if (hasTransform) {
+                    // Has existing transform: /upload/<transform>/...
+                    return `${base}${parts[0]}/${transformation}/${parts.slice(1).join('/')}`;
+                } else {
+                    // No transform: /upload/<public_id>
+                    return `${base}${transformation}/${afterUpload}`;
+                }
+            }
         }
 
         /**
