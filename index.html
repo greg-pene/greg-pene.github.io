@@ -1,1 +1,1093 @@
-Hello World
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Responsive Video | home24</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,300;0,6..12,400;0,6..12,500;0,6..12,600;0,6..12,700;1,6..12,400&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #e85d04;
+            --primary-hover: #d35400;
+            --primary-light: #fff4ed;
+            --white: #ffffff;
+            --bg-light: #f7f7f7;
+            --bg-warm: #faf9f7;
+            --black: #1a1a1a;
+            --text-primary: #333333;
+            --text-secondary: #666666;
+            --text-muted: #999999;
+            --border: #e5e5e5;
+            --border-light: #eeeeee;
+            --success: #27ae60;
+            --radius-sm: 4px;
+            --radius-md: 8px;
+            --radius-lg: 12px;
+            --radius-full: 50px;
+            --shadow-sm: 0 1px 3px rgba(0,0,0,0.08);
+            --shadow-md: 0 4px 12px rgba(0,0,0,0.1);
+            --shadow-lg: 0 8px 30px rgba(0,0,0,0.12);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            font-size: 16px;
+        }
+
+        body {
+            font-family: 'Nunito Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--bg-light);
+            color: var(--text-primary);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* Header - home24 style */
+        header {
+            width: 100%;
+            background: var(--white);
+            box-shadow: var(--shadow-sm);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-top {
+            background: var(--black);
+            color: var(--white);
+            font-size: 0.75rem;
+            padding: 0.5rem 2rem;
+            text-align: center;
+        }
+
+        .header-top a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .header-main {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1rem 2rem;
+            gap: 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+            text-decoration: none;
+            flex-shrink: 0;
+        }
+
+        .logo-text {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--black);
+            letter-spacing: -0.02em;
+        }
+
+        .logo-accent {
+            color: var(--primary);
+        }
+
+        /* Search section styling */
+        .search-container {
+            flex: 1;
+            max-width: 600px;
+        }
+
+        /* Page Title */
+        .page-hero {
+            background: linear-gradient(135deg, var(--bg-warm) 0%, var(--white) 100%);
+            padding: 3rem 2rem;
+            text-align: center;
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .page-hero h1 {
+            font-weight: 700;
+            font-size: 2rem;
+            color: var(--black);
+            margin-bottom: 0.5rem;
+        }
+
+        .page-hero p {
+            color: var(--text-secondary);
+            font-size: 1rem;
+        }
+
+        /* Main Content */
+        .main-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+            width: 100%;
+        }
+
+        /* Input Section - home24 style card */
+        .input-card {
+            background: var(--white);
+            border-radius: var(--radius-lg);
+            padding: 1.5rem;
+            box-shadow: var(--shadow-sm);
+            margin-bottom: 2rem;
+        }
+
+        .input-label {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 0.75rem;
+            display: block;
+        }
+
+        .input-wrapper {
+            display: flex;
+            gap: 0.75rem;
+            width: 100%;
+        }
+
+        input[type="text"] {
+            flex: 1;
+            padding: 0.875rem 1rem;
+            font-family: inherit;
+            font-size: 0.9375rem;
+            background: var(--bg-light);
+            border: 2px solid var(--border);
+            border-radius: var(--radius-md);
+            color: var(--text-primary);
+            outline: none;
+            transition: all 0.2s ease;
+        }
+
+        input[type="text"]::placeholder {
+            color: var(--text-muted);
+        }
+
+        input[type="text"]:focus {
+            border-color: var(--primary);
+            background: var(--white);
+            box-shadow: 0 0 0 3px var(--primary-light);
+        }
+
+        button {
+            padding: 0.875rem 1.75rem;
+            font-family: inherit;
+            font-size: 0.9375rem;
+            font-weight: 600;
+            background: var(--primary);
+            color: var(--white);
+            border: none;
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            white-space: nowrap;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        button:hover {
+            background: var(--primary-hover);
+            transform: translateY(-1px);
+            box-shadow: var(--shadow-md);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        button svg {
+            width: 18px;
+            height: 18px;
+            fill: currentColor;
+        }
+
+        .error-message {
+            color: #c0392b;
+            font-size: 0.875rem;
+            padding: 0.75rem;
+            background: #fdeaea;
+            border-radius: var(--radius-sm);
+            margin-top: 0.75rem;
+            display: none;
+        }
+
+        .error-message.visible {
+            display: block;
+        }
+
+        /* Video Container */
+        .video-section {
+            background: var(--white);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+            margin-bottom: 2rem;
+        }
+
+        .video-wrapper {
+            width: 100%;
+            background: var(--black);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Source Overlay - home24 style */
+        .source-overlay {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: rgba(255, 255, 255, 0.95);
+            color: var(--text-primary);
+            padding: 0.625rem 1rem;
+            font-size: 0.75rem;
+            font-weight: 500;
+            z-index: 10;
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-md);
+            display: none;
+            backdrop-filter: blur(8px);
+        }
+
+        .source-overlay.visible {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .source-overlay .source-badge {
+            background: var(--primary-light);
+            color: var(--primary);
+            padding: 0.25rem 0.5rem;
+            border-radius: var(--radius-sm);
+            font-weight: 600;
+            font-size: 0.6875rem;
+        }
+
+        .source-overlay #activeSource {
+            color: var(--text-primary);
+            font-family: 'SF Mono', Monaco, 'Courier New', monospace;
+            font-size: 0.6875rem;
+        }
+
+        .source-overlay .source-size {
+            color: var(--text-muted);
+            font-size: 0.6875rem;
+            padding-left: 0.5rem;
+            border-left: 1px solid var(--border);
+        }
+
+        .source-overlay #sourceLink {
+            color: var(--primary);
+            text-decoration: none;
+            font-size: 1rem;
+            line-height: 1;
+            transition: color 0.2s ease;
+            padding-left: 0.5rem;
+            border-left: 1px solid var(--border);
+        }
+
+        .source-overlay #sourceLink:hover {
+            color: var(--primary-hover);
+        }
+
+        video {
+            width: 100%;
+            display: block;
+            background: var(--black);
+        }
+
+        .placeholder {
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 1.25rem;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            color: var(--text-muted);
+        }
+
+        .placeholder-icon {
+            width: 80px;
+            height: 80px;
+            background: var(--white);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: var(--shadow-md);
+            transition: transform 0.3s ease;
+        }
+
+        .placeholder:hover .placeholder-icon {
+            transform: scale(1.05);
+        }
+
+        .placeholder-icon svg {
+            width: 32px;
+            height: 32px;
+            fill: var(--primary);
+            margin-left: 4px;
+        }
+
+        .placeholder-text {
+            font-size: 0.9375rem;
+            font-weight: 500;
+            color: var(--text-secondary);
+        }
+
+        /* Resize Toolbar - home24 style */
+        .resize-section {
+            padding: 1.5rem;
+            border-top: 1px solid var(--border-light);
+            background: var(--bg-light);
+        }
+
+        .resize-section h3 {
+            font-weight: 600;
+            font-size: 0.875rem;
+            color: var(--text-primary);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .resize-section h3::before {
+            content: '';
+            width: 4px;
+            height: 16px;
+            background: var(--primary);
+            border-radius: 2px;
+        }
+
+        .resize-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .resize-btn {
+            padding: 0.625rem 1rem;
+            font-family: inherit;
+            font-size: 0.8125rem;
+            font-weight: 500;
+            background: var(--white);
+            color: var(--text-primary);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-full);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.125rem;
+            min-width: 100px;
+        }
+
+        .resize-btn:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+            background: var(--primary-light);
+        }
+
+        .resize-btn.active {
+            background: var(--primary);
+            color: var(--white);
+            border-color: var(--primary);
+        }
+
+        .resize-btn .size-label {
+            font-size: 0.6875rem;
+            font-weight: 400;
+            opacity: 0.7;
+        }
+
+        .resize-btn.active .size-label {
+            opacity: 0.85;
+        }
+
+        /* Video wrapper when resized */
+        .video-wrapper.resized {
+            margin: 0 auto;
+            transition: max-width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .video-frame-indicator {
+            text-align: center;
+            padding: 0.75rem;
+            font-size: 0.8125rem;
+            font-weight: 500;
+            color: var(--text-secondary);
+            background: var(--primary-light);
+            display: none;
+        }
+
+        .video-frame-indicator.visible {
+            display: block;
+        }
+
+        .video-frame-indicator strong {
+            color: var(--primary);
+            font-weight: 700;
+        }
+
+        /* Breakpoints Info - home24 style card */
+        .breakpoints-card {
+            background: var(--white);
+            border-radius: var(--radius-lg);
+            padding: 1.5rem;
+            box-shadow: var(--shadow-sm);
+            display: none;
+        }
+
+        .breakpoints-card.visible {
+            display: block;
+        }
+
+        .breakpoints-card h3 {
+            font-weight: 600;
+            font-size: 0.9375rem;
+            color: var(--text-primary);
+            margin-bottom: 1rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 2px solid var(--border-light);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .breakpoints-card h3::before {
+            content: '';
+            width: 4px;
+            height: 18px;
+            background: var(--primary);
+            border-radius: 2px;
+        }
+
+        .breakpoint-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid var(--border-light);
+            font-size: 0.875rem;
+        }
+
+        .breakpoint-item:last-of-type {
+            border-bottom: none;
+        }
+
+        .breakpoint-label {
+            min-width: 160px;
+            font-weight: 600;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .breakpoint-label::before {
+            content: '';
+            width: 8px;
+            height: 8px;
+            background: var(--primary);
+            border-radius: 50%;
+        }
+
+        .breakpoint-url {
+            flex: 1;
+            word-break: break-all;
+            font-family: 'SF Mono', Monaco, 'Courier New', monospace;
+            font-size: 0.6875rem;
+            color: var(--text-muted);
+            background: var(--bg-light);
+            padding: 0.5rem 0.75rem;
+            border-radius: var(--radius-sm);
+            line-height: 1.5;
+        }
+
+        /* Footer - home24 style */
+        footer {
+            padding: 2rem;
+            text-align: center;
+            background: var(--white);
+            border-top: 1px solid var(--border-light);
+            margin-top: auto;
+        }
+
+        .footer-brand {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-brand svg {
+            width: 24px;
+            height: 24px;
+        }
+
+        footer p {
+            font-size: 0.8125rem;
+            color: var(--text-muted);
+        }
+
+        footer a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header-main {
+                padding: 0.875rem 1rem;
+                gap: 1rem;
+            }
+
+            .logo-text {
+                font-size: 1.5rem;
+            }
+
+            .page-hero {
+                padding: 2rem 1rem;
+            }
+
+            .page-hero h1 {
+                font-size: 1.5rem;
+            }
+
+            .main-content {
+                padding: 1rem;
+            }
+
+            .input-card {
+                padding: 1rem;
+            }
+
+            .input-wrapper {
+                flex-direction: column;
+            }
+
+            button {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .resize-section {
+                padding: 1rem;
+            }
+
+            .resize-buttons {
+                gap: 0.375rem;
+            }
+
+            .resize-btn {
+                flex: 1 1 calc(33.333% - 0.375rem);
+                min-width: 90px;
+                padding: 0.5rem 0.75rem;
+                font-size: 0.75rem;
+            }
+
+            .resize-btn .size-label {
+                font-size: 0.625rem;
+            }
+
+            .breakpoints-card {
+                padding: 1rem;
+            }
+
+            .breakpoint-item {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.5rem;
+            }
+
+            .breakpoint-label {
+                min-width: auto;
+                font-size: 0.8125rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-top">
+            🎉 Cloudinary Responsive Video Demo — <a href="#">Learn more about media optimization</a>
+        </div>
+        <div class="header-main">
+            <a href="#" class="logo">
+                <span class="logo-text">home<span class="logo-accent">24</span></span>
+            </a>
+            <div class="search-container">
+                <!-- Search can be added here if needed -->
+            </div>
+        </div>
+    </header>
+
+    <section class="page-hero">
+        <h1>Responsive Video Preview</h1>
+        <p>Test how your Cloudinary videos adapt to different screen sizes</p>
+    </section>
+
+    <main class="main-content">
+        <div class="input-card">
+            <label class="input-label">Enter your Cloudinary video URL</label>
+            <div class="input-wrapper">
+                <input 
+                    type="text" 
+                    id="videoUrl" 
+                    placeholder="https://res.cloudinary.com/your-cloud/video/upload/..."
+                    autocomplete="off"
+                >
+                <button onclick="loadVideo()">
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M8 5v14l11-7z"/>
+                    </svg>
+                    Play Video
+                </button>
+            </div>
+            <p class="error-message" id="errorMessage">Unable to load video. Please verify the URL.</p>
+        </div>
+
+        <section class="video-section">
+            <div class="video-frame-indicator" id="frameIndicator">
+                Simulating viewport width: <strong id="frameSize">—</strong>
+            </div>
+            <div class="video-wrapper" id="videoWrapper">
+                <div class="source-overlay" id="sourceOverlay">
+                    <span class="source-badge">ACTIVE</span>
+                    <span id="activeSource">—</span>
+                    <span id="sourceSize" class="source-size">—</span>
+                    <a href="#" id="sourceLink" target="_blank" title="Open this rendition">↗</a>
+                </div>
+                <div class="placeholder" id="placeholder">
+                    <div class="placeholder-icon">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M8 5v14l11-7z"/>
+                        </svg>
+                    </div>
+                    <p class="placeholder-text">Enter a video URL to get started</p>
+                </div>
+                <video 
+                    id="videoPlayer" 
+                    controls
+                    loop
+                    muted
+                    playsinline
+                    style="display: none;"
+                >
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+            <div class="resize-section" id="resizeToolbar" style="display: none;">
+                <h3>Preview Different Sizes</h3>
+                <div class="resize-buttons">
+                    <button class="resize-btn active" onclick="resizeVideo('full')">
+                        Full Width
+                        <span class="size-label">100%</span>
+                    </button>
+                    <button class="resize-btn" onclick="resizeVideo(480)">
+                        Mobile S
+                        <span class="size-label">480px</span>
+                    </button>
+                    <button class="resize-btn" onclick="resizeVideo(768)">
+                        Mobile L
+                        <span class="size-label">768px</span>
+                    </button>
+                    <button class="resize-btn" onclick="resizeVideo(1024)">
+                        Tablet
+                        <span class="size-label">1024px</span>
+                    </button>
+                    <button class="resize-btn" onclick="resizeVideo(1280)">
+                        Laptop
+                        <span class="size-label">1280px</span>
+                    </button>
+                    <button class="resize-btn" onclick="resizeVideo(1920)">
+                        Desktop
+                        <span class="size-label">1920px</span>
+                    </button>
+                    <button class="resize-btn" onclick="resizeVideo(2560)">
+                        4K
+                        <span class="size-label">2560px</span>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <div class="breakpoints-card" id="breakpointsInfo"></div>
+    </main>
+
+    <footer>
+        <div class="footer-brand">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect width="24" height="24" rx="4" fill="#e85d04"/>
+                <path d="M8 6h2v12H8V6zm6 0h2v12h-2V6z" fill="white"/>
+            </svg>
+            <span style="font-weight: 600; color: #1a1a1a;">home<span style="color: #e85d04;">24</span></span>
+        </div>
+        <p>Cloudinary Responsive Video Demo • <a href="https://cloudinary.com/documentation/video_transformation_reference" target="_blank">View Documentation</a></p>
+    </footer>
+
+    <script>
+        const videoUrlInput = document.getElementById('videoUrl');
+        const videoPlayer = document.getElementById('videoPlayer');
+        const placeholder = document.getElementById('placeholder');
+        const errorMessage = document.getElementById('errorMessage');
+        const breakpointsInfo = document.getElementById('breakpointsInfo');
+        const resizeToolbar = document.getElementById('resizeToolbar');
+        const videoWrapper = document.getElementById('videoWrapper');
+        const frameIndicator = document.getElementById('frameIndicator');
+        const frameSize = document.getElementById('frameSize');
+        const sourceOverlay = document.getElementById('sourceOverlay');
+        const activeSourceEl = document.getElementById('activeSource');
+        const sourceSize = document.getElementById('sourceSize');
+        const sourceLink = document.getElementById('sourceLink');
+
+        // Responsive breakpoints: max-width -> video width
+        const breakpoints = [
+            { maxWidth: 480, videoWidth: 480, label: 'Mobile S' },
+            { maxWidth: 768, videoWidth: 768, label: 'Mobile L' },
+            { maxWidth: 1024, videoWidth: 1024, label: 'Tablet' },
+            { maxWidth: 1280, videoWidth: 1280, label: 'Laptop' },
+            { maxWidth: 1920, videoWidth: 1920, label: 'Desktop' },
+            { maxWidth: Infinity, videoWidth: 2560, label: '4K' }
+        ];
+
+        /**
+         * Format bytes to human readable size
+         */
+        function formatFileSize(bytes) {
+            if (bytes === 0) return '0 B';
+            if (!bytes) return '—';
+            
+            const k = 1024;
+            const sizes = ['B', 'KB', 'MB', 'GB'];
+            const i = Math.floor(Math.log(bytes) / Math.log(k));
+            
+            return parseFloat((bytes / Math.pow(k, i)).toFixed(1)) + ' ' + sizes[i];
+        }
+
+        /**
+         * Fetch file size via HEAD request
+         */
+        async function fetchFileSize(url) {
+            try {
+                sourceSize.textContent = '...';
+                const response = await fetch(url, { method: 'HEAD' });
+                const contentLength = response.headers.get('Content-Length');
+                
+                if (contentLength) {
+                    sourceSize.textContent = formatFileSize(parseInt(contentLength, 10));
+                } else {
+                    sourceSize.textContent = '—';
+                }
+            } catch (error) {
+                sourceSize.textContent = '—';
+            }
+        }
+
+        /**
+         * Parse a Cloudinary URL and insert a transformation
+         * Supports URLs with or without existing transformations
+         */
+        function addCloudinaryTransformation(url, transformation) {
+            // Cloudinary URL pattern: 
+            // https://res.cloudinary.com/<cloud>/video/upload[/existing_transforms]/<public_id>
+            const cloudinaryRegex = /^(https?:\/\/res\.cloudinary\.com\/[^\/]+\/video\/upload)(\/[^\/]+)?(\/.*?)(\.[a-zA-Z0-9]+)?$/;
+            
+            const match = url.match(cloudinaryRegex);
+            
+            if (match) {
+                const base = match[1];
+                const existingTransforms = match[2] || '';
+                const publicId = match[3];
+                const extension = match[4] || '';
+                
+                if (existingTransforms) {
+                    return `${base}${existingTransforms}/${transformation}${publicId}${extension}`;
+                } else {
+                    return `${base}/${transformation}${publicId}${extension}`;
+                }
+            }
+            
+            const uploadIndex = url.indexOf('/upload/');
+            if (uploadIndex !== -1) {
+                const insertPosition = uploadIndex + 8;
+                return url.slice(0, insertPosition) + transformation + '/' + url.slice(insertPosition);
+            }
+            
+            return null;
+        }
+
+        /**
+         * Generate responsive video sources for different screen sizes
+         */
+        function generateResponsiveSources(baseUrl) {
+            const sources = [];
+            
+            for (let i = 0; i < breakpoints.length; i++) {
+                const bp = breakpoints[i];
+                const transformation = `c_limit,w_${bp.videoWidth}`;
+                const transformedUrl = addCloudinaryTransformation(baseUrl, transformation);
+                
+                if (transformedUrl) {
+                    let media;
+                    if (i === 0) {
+                        media = `(max-width: ${bp.maxWidth}px)`;
+                    } else if (bp.maxWidth === Infinity) {
+                        media = `(min-width: ${breakpoints[i-1].maxWidth + 1}px)`;
+                    } else {
+                        media = `(max-width: ${bp.maxWidth}px)`;
+                    }
+                    
+                    sources.push({
+                        url: transformedUrl,
+                        media: media,
+                        width: bp.videoWidth,
+                        label: bp.label
+                    });
+                }
+            }
+            
+            return sources;
+        }
+
+        /**
+         * Detect video MIME type from URL
+         */
+        function getVideoType(url) {
+            const extension = url.split('.').pop()?.toLowerCase().split('?')[0];
+            const mimeTypes = {
+                'mp4': 'video/mp4',
+                'webm': 'video/webm',
+                'ogg': 'video/ogg',
+                'ogv': 'video/ogg',
+                'mov': 'video/quicktime',
+                'm4v': 'video/mp4'
+            };
+            return mimeTypes[extension] || 'video/mp4';
+        }
+
+        /**
+         * Display breakpoints information
+         */
+        function displayBreakpointsInfo(sources) {
+            let html = '<h3>Responsive Video Sources</h3>';
+            
+            sources.forEach(source => {
+                html += `
+                    <div class="breakpoint-item">
+                        <span class="breakpoint-label">${source.label} (${source.width}px)</span>
+                        <span class="breakpoint-url">${source.url}</span>
+                    </div>
+                `;
+            });
+            
+            breakpointsInfo.innerHTML = html;
+            breakpointsInfo.classList.add('visible');
+            
+            // Show source overlay
+            sourceOverlay.classList.add('visible');
+        }
+
+        /**
+         * Update current source display based on screen width
+         */
+        function updateCurrentSourceDisplay(sources) {
+            const width = window.innerWidth;
+            let matchedSource = sources[sources.length - 1];
+            
+            for (const source of sources) {
+                const maxWidthMatch = source.media.match(/max-width:\s*(\d+)px/);
+                const minWidthMatch = source.media.match(/min-width:\s*(\d+)px/);
+                
+                if (maxWidthMatch && width <= parseInt(maxWidthMatch[1])) {
+                    matchedSource = source;
+                    break;
+                }
+                if (minWidthMatch && width >= parseInt(minWidthMatch[1])) {
+                    matchedSource = source;
+                }
+            }
+            
+            activeSourceEl.textContent = `${matchedSource.label} · w_${matchedSource.width}`;
+            sourceLink.href = matchedSource.url;
+            fetchFileSize(matchedSource.url);
+        }
+
+        /**
+         * Resize video wrapper to simulate different screen sizes
+         */
+        function resizeVideo(size) {
+            // Update button states
+            document.querySelectorAll('.resize-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.currentTarget.classList.add('active');
+
+            if (size === 'full') {
+                // Full width
+                videoWrapper.style.maxWidth = '';
+                videoWrapper.classList.remove('resized');
+                frameIndicator.classList.remove('visible');
+            } else {
+                // Specific size
+                videoWrapper.style.maxWidth = size + 'px';
+                videoWrapper.classList.add('resized');
+                frameIndicator.classList.add('visible');
+                frameSize.textContent = size + 'px';
+            }
+
+            // Reload video to get correct source for new size
+            if (videoPlayer.style.display !== 'none' && window._currentSources) {
+                // Find the matching source for the simulated width
+                const simulatedWidth = size === 'full' ? window.innerWidth : size;
+                let matchedSource = window._currentSources[window._currentSources.length - 1];
+                
+                for (const source of window._currentSources) {
+                    const maxWidthMatch = source.media.match(/max-width:\s*(\d+)px/);
+                    if (maxWidthMatch && simulatedWidth <= parseInt(maxWidthMatch[1])) {
+                        matchedSource = source;
+                        break;
+                    }
+                }
+
+                // Update the active source overlay
+                activeSourceEl.textContent = `${matchedSource.label} · w_${matchedSource.width}`;
+                sourceLink.href = matchedSource.url;
+                fetchFileSize(matchedSource.url);
+            }
+        }
+
+        function loadVideo() {
+            const url = videoUrlInput.value.trim();
+            
+            if (!url) {
+                showError('Please enter a video URL');
+                return;
+            }
+
+            hideError();
+            
+            videoPlayer.innerHTML = '';
+            videoPlayer.removeAttribute('src');
+            
+            const isCloudinary = url.includes('res.cloudinary.com') || url.includes('/upload/');
+            
+            if (isCloudinary) {
+                const sources = generateResponsiveSources(url);
+                
+                if (sources.length > 0) {
+                    const videoType = getVideoType(url);
+                    
+                    sources.forEach(source => {
+                        const sourceEl = document.createElement('source');
+                        sourceEl.src = source.url;
+                        sourceEl.type = videoType;
+                        sourceEl.media = source.media;
+                        videoPlayer.appendChild(sourceEl);
+                    });
+                    
+                    videoPlayer.appendChild(document.createTextNode('Your browser does not support the video tag.'));
+                    
+                    // Store sources globally for resize function
+                    window._currentSources = sources;
+                    
+                    displayBreakpointsInfo(sources);
+                    
+                    // Show resize toolbar
+                    resizeToolbar.style.display = 'block';
+                    
+                    // Reset to full width
+                    videoWrapper.style.maxWidth = '';
+                    videoWrapper.classList.remove('resized');
+                    frameIndicator.classList.remove('visible');
+                    document.querySelectorAll('.resize-btn').forEach(btn => btn.classList.remove('active'));
+                    document.querySelector('.resize-btn').classList.add('active');
+                    
+                    const updateDisplay = () => updateCurrentSourceDisplay(sources);
+                    window.removeEventListener('resize', window._resizeHandler);
+                    window._resizeHandler = updateDisplay;
+                    window.addEventListener('resize', updateDisplay);
+                    updateDisplay();
+                } else {
+                    showError('Could not parse Cloudinary URL. Please check the format.');
+                    return;
+                }
+            } else {
+                videoPlayer.src = url;
+                breakpointsInfo.classList.remove('visible');
+                resizeToolbar.style.display = 'none';
+                sourceOverlay.classList.remove('visible');
+                window._currentSources = null;
+            }
+            
+            videoPlayer.style.display = 'block';
+            placeholder.style.display = 'none';
+            
+            videoPlayer.load();
+            videoPlayer.play().catch(() => {});
+        }
+
+        function showError(message) {
+            errorMessage.textContent = message;
+            errorMessage.classList.add('visible');
+        }
+
+        function hideError() {
+            errorMessage.classList.remove('visible');
+        }
+
+        videoPlayer.addEventListener('error', (e) => {
+            if (e.target === videoPlayer) {
+                showError('Unable to load video. Please check the URL and try again.');
+                videoPlayer.style.display = 'none';
+                placeholder.style.display = 'flex';
+            }
+        });
+
+        videoUrlInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                loadVideo();
+            }
+        });
+
+        // Check for video URL parameter on page load
+        (function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const videoParam = urlParams.get('video') || urlParams.get('url') || urlParams.get('src');
+            
+            if (videoParam) {
+                videoUrlInput.value = videoParam;
+                loadVideo();
+            }
+        })();
+    </script>
+</body>
+</html>
