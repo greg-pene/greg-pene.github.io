@@ -282,8 +282,7 @@
 
         /* Breakpoints Info - Dior Style */
         .breakpoints-info {
-            width: 100%;
-            max-width: 720px;
+            width: 90%;
             margin: 0 auto;
             padding: 2rem;
             display: none;
@@ -336,8 +335,7 @@
 
         /* Resize Toolbar */
         .resize-toolbar {
-            width: 100%;
-            max-width: 720px;
+            width: 90%;
             margin: 0 auto;
             padding: 2rem 2rem 1.5rem;
             display: none;
@@ -430,6 +428,113 @@
         .video-frame-indicator strong {
             color: var(--text-primary);
             font-weight: 500;
+        }
+
+        /* Code tab - foldable at bottom */
+        .code-tab-wrap {
+            width: 90%;
+            margin: 0 auto;
+            padding: 0 2rem 0;
+        }
+
+        .code-tab-bar {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            font-family: 'Cormorant Garamond', Georgia, serif;
+            font-size: 0.8rem;
+            font-weight: 400;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            background: var(--off-white);
+            color: var(--text-primary);
+            border: 1px solid var(--border);
+            border-bottom: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            transition: background 0.2s ease;
+        }
+
+        .code-tab-bar:hover {
+            background: var(--border);
+        }
+
+        .code-tab-bar .code-tab-chevron {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            transition: transform 0.2s ease;
+        }
+
+        .code-tab-bar.open .code-tab-chevron {
+            transform: rotate(180deg);
+        }
+
+        .code-tab-panel {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+            border: 1px solid var(--border);
+            border-top: none;
+            background: var(--white);
+        }
+
+        .code-tab-panel.open {
+            max-height: 420px;
+        }
+
+        .code-tab-panel-inner {
+            padding: 1rem;
+        }
+
+        .code-tab-actions {
+            display: flex;
+            justify-content: flex-end;
+            margin-bottom: 0.75rem;
+        }
+
+        .copy-video-code-btn {
+            padding: 0.5rem 1rem;
+            font-family: 'Cormorant Garamond', Georgia, serif;
+            font-size: 0.75rem;
+            font-weight: 400;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            background: var(--black);
+            color: var(--white);
+            border: none;
+            cursor: pointer;
+            transition: background 0.2s ease;
+        }
+
+        .copy-video-code-btn:hover {
+            background: var(--text-primary);
+        }
+
+        .copy-video-code-btn.copied {
+            background: #2d5a2d;
+        }
+
+        .code-block-wrap {
+            background: #1a1a1a;
+            border-radius: 2px;
+            overflow: auto;
+        }
+
+        .code-block {
+            padding: 1rem 1.25rem;
+            font-family: 'SF Mono', Monaco, 'Courier New', monospace;
+            font-size: 0.75rem;
+            line-height: 1.6;
+            color: #e0e0e0;
+            white-space: pre;
+            margin: 0;
+        }
+
+        .code-tab-panel .code-empty {
+            color: var(--text-muted);
+            font-style: italic;
+            font-size: 0.875rem;
         }
 
         /* Footer */
@@ -610,6 +715,23 @@
 
     <div class="breakpoints-info" id="breakpointsInfo"></div>
 
+    <div class="code-tab-wrap">
+        <button type="button" class="code-tab-bar" id="codeTabBar" aria-expanded="false" aria-controls="codeTabPanel">
+            <span>Video tag code</span>
+            <span class="code-tab-chevron" aria-hidden="true">▼</span>
+        </button>
+        <div class="code-tab-panel" id="codeTabPanel" role="region" aria-label="Video tag code">
+            <div class="code-tab-panel-inner">
+                <div class="code-tab-actions">
+                    <button type="button" class="copy-video-code-btn" id="copyVideoCodeBtn">Copy code</button>
+                </div>
+                <div class="code-block-wrap">
+                    <pre class="code-block" id="videoCodeBlock"><code id="videoCodeContent">Load a video to see the &lt;video&gt; tag code.</code></pre>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <footer>
         <p>Cloudinary Responsive Video Demo</p>
     </footer>
@@ -628,6 +750,10 @@
         const activeSourceEl = document.getElementById('activeSource');
         const sourceSize = document.getElementById('sourceSize');
         const sourceLink = document.getElementById('sourceLink');
+        const codeTabBar = document.getElementById('codeTabBar');
+        const codeTabPanel = document.getElementById('codeTabPanel');
+        const videoCodeContent = document.getElementById('videoCodeContent');
+        const copyVideoCodeBtn = document.getElementById('copyVideoCodeBtn');
 
         // Responsive breakpoints: max-width -> video width
         const breakpoints = [
@@ -963,6 +1089,66 @@
                 loadVideo();
             }
         })();
+
+        // --- Code tab: build &lt;video&gt; tag string and copy ---
+        function getVideoTagCode() {
+            if (videoPlayer.style.display === 'none' || (!videoPlayer.src && !videoPlayer.querySelector('source'))) {
+                return null;
+            }
+            const attrs = [];
+            if (videoPlayer.controls) attrs.push('controls');
+            if (videoPlayer.loop) attrs.push('loop');
+            if (videoPlayer.muted) attrs.push('muted');
+            if (videoPlayer.playsInline) attrs.push('playsinline');
+            const attrStr = attrs.length ? ' ' + attrs.join(' ') : '';
+            const sources = videoPlayer.querySelectorAll('source');
+            if (sources.length > 0) {
+                let inner = '';
+                sources.forEach(function(s) {
+                    const m = s.media ? ' media="' + s.media.replace(/"/g, '&quot;') + '"' : '';
+                    inner += '\n  <source src="' + s.src + '" type="' + (s.type || 'video/mp4') + '"' + m + '>';
+                });
+                return '<video' + attrStr + '>' + inner + '\n</video>';
+            }
+            const src = videoPlayer.src || videoPlayer.getAttribute('src');
+            if (src) {
+                return '<video src="' + src + '"' + attrStr + '></video>';
+            }
+            return null;
+        }
+
+        function updateCodeDisplay() {
+            const code = getVideoTagCode();
+            videoCodeContent.textContent = code || 'Load a video to see the <video> tag code.';
+        }
+
+        codeTabBar.addEventListener('click', function() {
+            const open = codeTabPanel.classList.toggle('open');
+            codeTabBar.classList.toggle('open', open);
+            codeTabBar.setAttribute('aria-expanded', open);
+            if (open) updateCodeDisplay();
+        });
+
+        copyVideoCodeBtn.addEventListener('click', function() {
+            const code = getVideoTagCode();
+            if (!code) return;
+            navigator.clipboard.writeText(code).then(function() {
+                copyVideoCodeBtn.textContent = 'Copied!';
+                copyVideoCodeBtn.classList.add('copied');
+                setTimeout(function() {
+                    copyVideoCodeBtn.textContent = 'Copy code';
+                    copyVideoCodeBtn.classList.remove('copied');
+                }, 2000);
+            });
+        });
+
+        // Update code when video loads (hook into loadVideo)
+        const _loadVideo = loadVideo;
+        loadVideo = function() {
+            _loadVideo();
+            setTimeout(updateCodeDisplay, 100);
+        };
+        videoPlayer.addEventListener('loadstart', updateCodeDisplay);
     </script>
 </body>
 </html>
