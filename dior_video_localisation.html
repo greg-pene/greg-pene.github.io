@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Video Localisation – DIOR</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #ffffff;
+      --card: #fafafa;
+      --text: #000000;
+      --muted: #666666;
+      --border: #e5e5e5;
+      --font-serif: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
+      --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: var(--font-sans);
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      padding: 0;
+    }
+    .site-header {
+      border-bottom: 1px solid var(--border);
+      padding: 1.25rem 2rem;
+      text-align: center;
+    }
+    .site-header .logo {
+      font-family: var(--font-serif);
+      font-size: 1.75rem;
+      font-weight: 500;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--text);
+      text-decoration: none;
+    }
+    .main {
+      max-width: 1600px;
+      margin: 0 auto;
+      padding: 2.5rem 2rem;
+    }
+    .page-title {
+      font-family: var(--font-serif);
+      font-size: 1.5rem;
+      font-weight: 500;
+      margin-bottom: 0.35rem;
+      letter-spacing: 0.08em;
+    }
+    .subtitle {
+      color: var(--muted);
+      font-size: 0.875rem;
+      margin-bottom: 1.5rem;
+      font-weight: 400;
+    }
+    .url-form {
+      display: flex;
+      gap: 0.75rem;
+      margin-bottom: 2rem;
+      flex-wrap: wrap;
+    }
+    .url-form input {
+      flex: 1;
+      min-width: 200px;
+      padding: 0.65rem 1rem;
+      border: 1px solid var(--border);
+      border-radius: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-size: 0.9rem;
+      font-family: inherit;
+    }
+    .url-form input::placeholder {
+      color: var(--muted);
+    }
+    .url-form input:focus {
+      outline: none;
+      border-color: var(--text);
+    }
+    .url-form button {
+      padding: 0.65rem 1.5rem;
+      border: 1px solid var(--text);
+      border-radius: 0;
+      background: var(--text);
+      color: var(--bg);
+      font-weight: 500;
+      font-size: 0.8rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      cursor: pointer;
+      font-family: inherit;
+    }
+    .url-form button:hover {
+      background: var(--muted);
+      border-color: var(--muted);
+    }
+    .url-form button[type="button"] {
+      background: transparent;
+      color: var(--text);
+    }
+    .url-form button[type="button"]:hover {
+      background: var(--card);
+    }
+    .play-controls {
+      display: flex;
+      gap: 0.75rem;
+      margin-bottom: 1.5rem;
+    }
+    .play-controls button {
+      padding: 0.5rem 1rem;
+      border: 1px solid var(--border);
+      border-radius: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-size: 0.8rem;
+      letter-spacing: 0.05em;
+      cursor: pointer;
+      font-family: inherit;
+    }
+    .play-controls button:hover {
+      border-color: var(--text);
+      background: var(--card);
+    }
+    .videos {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+      width: 100%;
+      max-width: 100%;
+    }
+    .video-card {
+      background: var(--card);
+      overflow: hidden;
+      border: 1px solid var(--border);
+    }
+    .video-card .thumb-wrap {
+      aspect-ratio: 16/9;
+      background: #eee;
+      position: relative;
+    }
+    .video-card video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .video-card .info {
+      padding: 1rem 1.25rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .video-card .flag {
+      font-size: 1.25rem;
+      line-height: 1;
+    }
+    .video-card .label {
+      font-size: 0.75rem;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 0.2rem;
+    }
+    .video-card .name {
+      font-family: var(--font-serif);
+      font-weight: 500;
+      font-size: 1rem;
+    }
+    .video-card .meta {
+      font-size: 0.7rem;
+      color: var(--muted);
+      margin-top: 0.25rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .video-card .info-inner {
+      flex: 1;
+      min-width: 0;
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <a class="logo" href="#">DIOR</a>
+  </header>
+  <main class="main">
+    <h1 class="page-title">Video Localisation</h1>
+    <p class="subtitle">Enter a video URL to display it in four language variants.</p>
+    <form class="url-form" id="urlForm">
+    <input type="url" id="videoUrl" placeholder="https://example.com/video.mp4" required>
+    <button type="submit">Display</button>
+  </form>
+  <div class="play-controls" id="playControls" style="display: none;">
+    <button type="button" id="playAll">Play all</button>
+    <button type="button" id="pauseAll">Pause all</button>
+  </div>
+  <div class="videos" id="videos"></div>
+  </main>
+
+  <script>
+    const SUBTITLE_BASE = 'pm_11872_1264_1264881-cc8k73l35y-1080';
+    const VIDEO_CONFIGS = [
+      { lang: 'fr', meta: 'Muted + FR subtitles', flag: '🇫🇷' },
+      { lang: 'en', meta: 'Muted + EN subtitles', flag: '🇬🇧' },
+      { lang: 'ja', meta: 'Muted + JA subtitles', flag: '🇯🇵' },
+      { lang: 'ar', meta: 'Muted + AR subtitles', flag: '🇸🇦' },
+    ];
+    const container = document.getElementById('videos');
+    const form = document.getElementById('urlForm');
+    const input = document.getElementById('videoUrl');
+
+    function applyTransform(url, transformation) {
+      const marker = '/video/upload/';
+      const i = url.toLowerCase().indexOf(marker);
+      if (i === -1) return url;
+      const insertAt = i + marker.length;
+      return url.slice(0, insertAt) + transformation + url.slice(insertAt);
+    }
+
+    function transformForLang(lang) {
+      return `e_volume:mute/l_subtitles:${SUBTITLE_BASE}.${lang}.transcript/fl_layer_apply/`;
+    }
+
+    function renderVideos(url) {
+      container.innerHTML = '';
+      const label = url.split('/').pop() || 'Video';
+      VIDEO_CONFIGS.forEach((config, i) => {
+        const transformation = transformForLang(config.lang);
+        const videoUrl = applyTransform(url, transformation);
+        const card = document.createElement('div');
+        card.className = 'video-card';
+        card.innerHTML = `
+          <div class="thumb-wrap">
+            <video class="localisation-video" src="${videoUrl}" controls playsinline preload="metadata"></video>
+          </div>
+          <div class="info">
+            <span class="flag" aria-hidden="true">${config.flag}</span>
+            <div class="info-inner">
+              <div class="label">Video ${i + 1}</div>
+              <div class="name">${label}</div>
+              <div class="meta">${config.meta}</div>
+            </div>
+          </div>
+        `;
+        container.appendChild(card);
+      });
+      document.getElementById('playControls').style.display = 'flex';
+    }
+
+    function getVideoElements() {
+      return document.querySelectorAll('.localisation-video');
+    }
+
+    document.getElementById('playAll').addEventListener('click', () => {
+      getVideoElements().forEach((v) => { v.play().catch(() => {}); });
+    });
+
+    document.getElementById('pauseAll').addEventListener('click', () => {
+      getVideoElements().forEach((v) => v.pause());
+    });
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const url = input.value.trim();
+      if (url) {
+        renderVideos(url);
+        updateUrlParam(url);
+      }
+    });
+
+    function updateUrlParam(url) {
+      const u = new URL(location.href);
+      u.searchParams.set('url', url);
+      history.replaceState({}, '', u);
+    }
+
+    function initFromUrlParam() {
+      const u = new URL(location.href);
+      const url = u.searchParams.get('url');
+      if (url) {
+        input.value = url;
+        renderVideos(url);
+      }
+    }
+
+    initFromUrlParam();
+  </script>
+</body>
+</html>
