@@ -529,6 +529,85 @@
             line-height: 1.5;
         }
 
+        /* Copy HTML section */
+        .copy-html-card {
+            background: var(--white);
+            border-radius: var(--radius-lg);
+            padding: 1.5rem;
+            box-shadow: var(--shadow-sm);
+            display: none;
+        }
+
+        .copy-html-card.visible {
+            display: block;
+        }
+
+        .copy-html-card h3 {
+            font-weight: 600;
+            font-size: 0.9375rem;
+            color: var(--text-primary);
+            margin-bottom: 1rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 2px solid var(--border-light);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+        }
+
+        .copy-html-card h3::before {
+            content: '';
+            width: 4px;
+            height: 18px;
+            background: var(--primary);
+            border-radius: 2px;
+        }
+
+        .copy-html-card .copy-html-header {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            flex: 1;
+        }
+
+        .copy-html-card .copy-html-header::before {
+            content: none;
+        }
+
+        .copy-html-card .copy-btn {
+            padding: 0.5rem 1rem;
+            font-size: 0.8125rem;
+        }
+
+        .copy-html-card .copy-btn.copied {
+            background: var(--success);
+        }
+
+        .copy-html-card .code-block-wrapper {
+            position: relative;
+            margin-top: 0.75rem;
+        }
+
+        .copy-html-card pre {
+            margin: 0;
+            padding: 1rem;
+            background: var(--black);
+            color: #e0e0e0;
+            border-radius: var(--radius-md);
+            font-family: 'SF Mono', Monaco, 'Courier New', monospace;
+            font-size: 0.75rem;
+            line-height: 1.6;
+            overflow-x: auto;
+            white-space: pre-wrap;
+            word-break: break-all;
+        }
+
+        .copy-html-card pre code {
+            color: inherit;
+            background: none;
+        }
+
         /* Footer - home24 style */
         footer {
             padding: 2rem;
@@ -744,6 +823,16 @@
         </section>
 
         <div class="breakpoints-card" id="breakpointsInfo"></div>
+
+        <div class="copy-html-card" id="copyHtmlCard">
+            <h3>
+                <span class="copy-html-header">Generated video HTML</span>
+                <button type="button" class="copy-btn" id="copyHtmlBtn" onclick="copyVideoHtml()">Copy HTML</button>
+            </h3>
+            <div class="code-block-wrapper">
+                <pre><code id="generatedHtmlCode">Load a video to see the HTML code.</code></pre>
+            </div>
+        </div>
     </main>
 
     <footer>
@@ -771,6 +860,76 @@
         const activeSourceEl = document.getElementById('activeSource');
         const sourceSize = document.getElementById('sourceSize');
         const sourceLink = document.getElementById('sourceLink');
+        const copyHtmlCard = document.getElementById('copyHtmlCard');
+        const generatedHtmlCode = document.getElementById('generatedHtmlCode');
+        const copyHtmlBtn = document.getElementById('copyHtmlBtn');
+
+        /**
+         * Escape for use inside double-quoted HTML attributes (so copied HTML is valid)
+         */
+        function escapeAttr(str) {
+            if (!str) return '';
+            return String(str)
+                .replace(/&/g, '&amp;')
+                .replace(/"/g, '&quot;');
+        }
+
+        /**
+         * Build the HTML string for the current video tag (with sources or single src)
+         */
+        function getVideoTagHtml() {
+            if (videoPlayer.style.display === 'none') {
+                return '';
+            }
+            const sources = videoPlayer.querySelectorAll('source');
+            if (sources.length > 0) {
+                let html = '<video controls loop muted playsinline>\n';
+                sources.forEach(source => {
+                    const media = source.getAttribute('media') ? ` media="${escapeAttr(source.getAttribute('media'))}"` : '';
+                    html += `  <source src="${escapeAttr(source.src)}" type="${escapeAttr(source.type || 'video/mp4')}"${media}>\n`;
+                });
+                html += '  Your browser does not support the video tag.\n</video>';
+                return html;
+            }
+            if (videoPlayer.src) {
+                return `<video controls loop muted playsinline src="${escapeAttr(videoPlayer.src)}">\n  Your browser does not support the video tag.\n</video>`;
+            }
+            return '';
+        }
+
+        /**
+         * Update the displayed HTML code and show/hide the copy section
+         */
+        function updateGeneratedHtmlDisplay() {
+            const html = getVideoTagHtml();
+            if (html) {
+                generatedHtmlCode.textContent = html;
+                copyHtmlCard.classList.add('visible');
+            } else {
+                generatedHtmlCode.textContent = 'Load a video to see the HTML code.';
+                copyHtmlCard.classList.remove('visible');
+            }
+        }
+
+        /**
+         * Copy the generated video HTML to clipboard
+         */
+        function copyVideoHtml() {
+            const html = getVideoTagHtml();
+            if (!html) return;
+            navigator.clipboard.writeText(html).then(() => {
+                const label = copyHtmlBtn.textContent;
+                copyHtmlBtn.textContent = 'Copied!';
+                copyHtmlBtn.classList.add('copied');
+                setTimeout(() => {
+                    copyHtmlBtn.textContent = label;
+                    copyHtmlBtn.classList.remove('copied');
+                }, 2000);
+            }).catch(() => {
+                copyHtmlBtn.textContent = 'Copy failed';
+                setTimeout(() => { copyHtmlBtn.textContent = 'Copy HTML'; }, 2000);
+            });
+        }
 
         // Responsive breakpoints: max-width -> video width
         const breakpoints = [
@@ -1063,9 +1222,10 @@
             
             videoPlayer.style.display = 'block';
             placeholder.style.display = 'none';
-            
+
             videoPlayer.load();
             videoPlayer.play().catch(() => {});
+            updateGeneratedHtmlDisplay();
         }
 
         function showError(message) {
@@ -1082,6 +1242,7 @@
                 showError('Unable to load video. Please check the URL and try again.');
                 videoPlayer.style.display = 'none';
                 placeholder.style.display = 'flex';
+                updateGeneratedHtmlDisplay();
             }
         });
 
